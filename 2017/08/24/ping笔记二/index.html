@@ -1,0 +1,283 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="吾之所向 一往无前 愈挫愈勇 再接再厉"><title>Ping笔记(二) | GeniusRabbit</title><link rel="stylesheet" type="text/css" href="//fonts.neworld.org/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Ping笔记(二)</h1><a id="logo" href="/.">GeniusRabbit</a><p class="description">技术是纯净的</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="search"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Ping笔记(二)</h1><div class="post-meta"><a href="/2017/08/24/ping笔记二/#comments" class="comment-count"></a><p><span class="date">Aug 24, 2017</span><span><a href="/categories/Ping/" class="category">Ping</a></span></p></div><div class="post-content"><h2 id="函数介绍-续"><a href="#函数介绍-续" class="headerlink" title="函数介绍(续)"></a>函数介绍(续)</h2><h5 id="重要的函数-socket"><a href="#重要的函数-socket" class="headerlink" title="重要的函数: socket"></a>重要的函数: socket</h5><p>int socket(int family, int type, int protocol); 返回值:成功时返回文件描述符 / 失败时返回-1 头文件: #include &lt;sys/socket.h&gt; 函数作用:创建一个套接字 一般为了执行网络I/O，一个进程必须做的第一件事就是调用socket函数</p>
+<h6 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h6><p>第一个参数family：指明套接字中使用的协议族信息。 常见值有: 第二个参数type：指明套接口类型，也即套接字的数据传输方式。 常见值有: 在常见的使用socket进行网络编程中，经常使用SOCK_STREAM和SOCK_DGRAM，也就是TCP和UDP编程。在本项目中，我们将使用SOCK_RAW（原始套接字）。 原始套接字的主要作用在三个方面： 1.通过原始套接字发送/接收 ICMP 协议包。 2.接收发向本级的，但 TCP/IP 协议栈不能处理的IP包。 3.用来发送一些自己制定源地址特殊作用的IP包（自己写IP头）。 ping 命令使用的就是 ICMP 协议，因此我们不能直接通过建立一个 SOCK_STREAM或SOCK_DGRAM 来发送协议包，只能自己构建 ICMP 包通过 SOCK_RAW 来发送。 第三个参数 protocol：指明协议类型。 常见值有： 图片描述信息 参数 protocol 指明了所要接收的协议包。 如果指定了 IPPROTO_ICMP，则内核碰到ip头中 protocol 域和创建 socket 所使用参数 protocol 相同的 IP 包，就会交给我们创建的原始套接字来处理。 因此，一般来说，要想接收什么样的数据包，就应该在参数protocol里来指定相应的协议。当内核向我们创建的原始套接字交付数据包的时候，是包括整个IP头的，并且是已经重组好的IP包。如下所示： 图片描述信息 这里的数据也就是前面所说的时间戳。 但是，当我们发送IP包的时候，却不用自己处理IP首部，IP首部由内核自己维护，首部中的协议字段被设置成调用 socket 函数时传递给它的第三个参数。 我们发送 IP 包时，发送数据时从 IP 首部的第一个字节开始的，所以只需要构造一个如下所示的数据缓冲区就可以了。 图片描述信息 如果想自己处理 IP 首部，则需要设置 IP_HDRINCL 的 socket 选项，如下所示： int flag = 1; setsocketopt(sockfd, IPPROTO_TO, IP_HDRINCL, &amp;flag, sizeof(int)); 此时，我们需要构造如下所示的数据缓冲区。 注意，我们自己填充 IP 首部时，也不是填充 IP 首部的所有字段，而是应该将 IP 首部的 id 字段设置为0，表示让内核来处理这个字段。同时，内核还会自动完成 IP 首部的校验和的计算并填充。 最后介绍发送和接收 IP 包的两个函数：recvfrom 和 sendto。</p>
+<pre><code>#include &lt;sys/socket.h&gt;
+ssize_t recvfrom(int sockfd, void * buff, size_t nbytes, int flags, struct sockaddr * from, socklen_t * addrlen);
+
+ssize_t sendto(int sockfd, const void * buff, size_t nbytes, int flags,const struct sockaddr * to, socklen_t addrlen);
+成功时返回读写的字节数，失败时返回-1。
+
+sockfd参数：套接字描述符。
+buff参数：指向读入或写出缓冲区的指针。
+nbytes参数：读写字节数。
+flags参数：本项目中设置为0。
+recvfrom 的 from 参数指向一个将由该函数在返回时填写数据发送者的地址信息的结构体，而该结构体中填写的字节数则放在 addrlen 参数所指的整数中。
+sendto 的 to 参数指向一个含有数据报接收者的地址信息的结构体，其大小由addrlen参数指定。
+</code></pre><h2 id="校验和算法"><a href="#校验和算法" class="headerlink" title="校验和算法"></a>校验和算法</h2><p>检验和算法在 TCP/IP 协议族中是比较常见的算法。 IP、ICMP、UDP和TCP报文头部都有校验和字段，不过IP、TCP、UDP只针对首部计算校验和， 而 ICMP 对首部和报文数据一起计算校验和。 检验和算法可以分成两步来实现。 首先在发送端，有以下三步： 1.把校验和字段置为0。 2.对需要校验的数据看成以16bit为单位的数字组成，依次进行二进制求和。 3.将上一步的求和结果取反，存入校验和字段。 其次在接收端，也有相应的三步： 1. 对需要校验的数据看成以16bit为单位的数字组成，依次进行二进制求和，包括校验和字段。 2. 将上一步的求和结果取反。 3. 判断最终结果是否为0。如果为0，说明校验和正确。如果不为0，则协议栈会丢掉接收到的数据。 从上可以看出，归根到底，校验和算法就是二进制反码求和。由于先取反后相加与先相加后取反，得到的结果是一样的，所以上面的步骤都是先求和后取反。 下面用C语言来实现校验和算法，代码如下：</p>
+<pre><code>/**
+ * addr 指向需校验数据缓冲区的指针
+ * len  需校验数据的总长度（字节单位）
+ */
+unsigned short checkSum(unsigned short *addr, int len){
+    unsigned int sum = 0;
+    while(len &gt; 1){
+        sum += *addr++;
+        len -= 2;
+    }
+
+    // 处理剩下的一个字节
+    if(len == 1){
+        sum += *(unsigned char *)addr;
+    }
+
+    // 将32位的高16位与低16位相加
+    sum = (sum &gt;&gt; 16) + (sum &amp; 0xffff);
+    sum += (sum &gt;&gt; 16);
+
+    return (unsigned short) ~sum;
+}
+</code></pre><p>上面的代码首先定义了一个32位无符号整型的变量sum，用来保存16bit二进制数字相加的结果，由于16bit相加可能会产生进位，所以这里使用32位变量来保存结果，其中高16bit保存的是相加产生的进位。 然后下面的 while 循环，对数据按16bit累加求和。 接下来的if语句判断是否还剩下8bit（一字节）。如果校验的数据为奇数个字节，会剩下最后一字节。把最后一个字节视为一个2字节数据的高字节，这个2字节数据的低字节为0，继续累加。 之后的两行代码作用是将 sum 高16bit的值加到低16bit上，即把累加中最高位的进位加到最低位上。（sum &gt;&gt; 16）将高16bit右移到低16bit，（sum &amp; 0xffff）将高16bit全部置为0。注意，这两步都不会改变sum原来的值。 进行了两次相加可以保证 sum 高16bit都为0，没有进位了。 最后取反，并返回。 扩展： 为什么使用二进制反码求和，而不是原码或补码呢？ 这是因为，使用反码计算校验和比较简单和快速。对于网络通信来说，最重要的就是效率和速度。</p>
+<h2 id="编码实现"><a href="#编码实现" class="headerlink" title="编码实现"></a>编码实现</h2><p>整个程序的流程图如下所示： 图片描述信息 第一步，首先创建原始套接字。 第二步，封装 ICMP 报文，向目的IP地址发送 ICMP 报文，1秒后接收 ICM P响应报文，并打印 TTL，RTT。 第三步：循环第二步N次，本项目设置为5。 第四步:输出统计信息。</p>
+<h4 id="栗子"><a href="#栗子" class="headerlink" title="栗子:"></a>栗子:</h4><pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/time.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;netdb.h&gt;
+
+#define ICMP_SIZE (sizeof(struct icmp))
+#define ICMP_ECHO 8
+#define ICMP_ECHOREPLY 0
+#define BUF_SIZE 1024
+#define NUM   5    // 发送报文次数
+
+#define UCHAR  unsigned char
+#define USHORT unsigned short
+#define UINT   unsigned int
+
+// ICMP报文数据结构
+struct icmp{
+    UCHAR           type;      // 类型
+    UCHAR           code;      // 代码
+    USHORT          checksum;  // 校验和
+    USHORT          id;        // 标识符
+    USHORT          sequence;  // 序号
+    struct timeval  timestamp; // 时间戳
+};
+
+// IP首部数据结构
+struct ip{
+    // 主机字节序判断
+    #if __BYTE_ORDER == __LITTLE_ENDIAN
+    UCHAR   hlen:4;        // 首部长度
+    UCHAR   version:4;     // 版本
+    #endif
+    #if __BYTE_ORDER == __BIG_ENDIAN
+    UCHAR   version:4;
+    UCHAR   hlen:4;
+    #endif
+    UCHAR   tos;             // 服务类型
+    USHORT  len;             // 总长度
+    USHORT  id;                // 标识符
+    USHORT  offset;            // 标志和片偏移
+    UCHAR   ttl;            // 生存时间
+    UCHAR   protocol;       // 协议
+    USHORT  checksum;       // 校验和
+    struct in_addr ipsrc;    // 32位源ip地址
+    struct in_addr ipdst;   // 32位目的ip地址
+};
+
+char buf[BUF_SIZE] = {0};
+
+USHORT checkSum(USHORT *, int); // 计算校验和
+float timediff(struct timeval *, struct timeval *); // 计算时间差
+void pack(struct icmp *, int);  // 封装一个ICMP报文
+int unpack(char *, int, char *);        // 对接收到的IP报文进行解包
+
+int main(int argc, char * argv[]){
+    struct hostent *host;
+    struct icmp sendicmp;
+    struct sockaddr_in from;
+    struct sockaddr_in to;
+    int fromlen = 0;
+    int sockfd;
+    int nsend = 0;
+    int nreceived = 0;
+    int i, n;
+    in_addr_t inaddr;
+
+    memset(&amp;from, 0, sizeof(struct sockaddr_in));
+    memset(&amp;to, 0, sizeof(struct sockaddr_in));
+
+    if(argc &lt; 2){
+        printf(&quot;use : %s hostname/IP address \n&quot;, argv[0]);
+        exit(1);
+    }
+
+    // 生成原始套接字
+    if((sockfd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP)) == -1){
+        printf(&quot;socket() error \n&quot;);
+        exit(1);
+    }
+
+    // 设置目的地址信息
+    to.sin_family = AF_INET;
+
+    // 判断是域名还是ip地址
+    if(inaddr = inet_addr(argv[1]) == INADDR_NONE){
+        // 是域名
+        if((host = gethostbyname(argv[1])) == NULL){
+            printf(&quot;gethostbyname() error \n&quot;);
+            exit(1);
+        }
+        to.sin_addr = *(struct in_addr *)host-&gt;h_addr_list[0];
+    }else{
+        // 是ip地址
+        to.sin_addr.s_addr = inaddr;
+    }
+
+    // 输出域名ip地址信息
+    printf(&quot;ping %s (%s) : %d bytes of data.\n&quot;, argv[1], inet_ntoa(to.sin_addr), (int)ICMP_SIZE);
+
+    //循环发送报文、接收报文
+    for(i = 0; i &lt; NUM; i++){
+        nsend++;  // 发送次数加1
+        memset(&amp;sendicmp, 0, ICMP_SIZE);
+        pack(&amp;sendicmp, nsend);
+
+        // 发送报文
+        if(sendto(sockfd, &amp;sendicmp, ICMP_SIZE, 0, (struct sockaddr *)&amp;to, sizeof(to)) == -1){
+            printf(&quot;sendto() error \n&quot;);
+            continue;
+        }
+
+        // 接收报文
+        if((n = recvfrom(sockfd, buf, BUF_SIZE, 0, (struct sockaddr *)&amp;from, &amp;fromlen)) &lt; 0){
+            printf(&quot;recvform() error \n&quot;);
+            continue;
+        }
+        nreceived++;  // 接收次数加1
+        if(unpack(buf, n, inet_ntoa(from.sin_addr)) == -1){
+            printf(&quot;unpack() error \n&quot;);
+        }
+
+        sleep(1);
+    }
+
+    // 输出统计信息
+    printf(&quot;---  %s ping statistics ---\n&quot;, argv[1]);
+    printf(&quot;%d packets transmitted, %d received, %%%d packet loss\n&quot;, nsend, nreceived,
+            (nsend - nreceived) / nsend * 100);
+
+    return 0;
+}
+
+/**
+ * addr 指向需校验数据缓冲区的指针
+ * len  需校验数据的总长度（字节单位）
+ */
+USHORT checkSum(USHORT *addr, int len){
+    UINT sum = 0;
+    while(len &gt; 1){
+        sum += *addr++;
+        len -= 2;
+    }
+
+    // 处理剩下的一个字节
+    if(len == 1){
+        sum += *(UCHAR *)addr;
+    }
+
+    // 将32位的高16位与低16位相加
+    sum = (sum &gt;&gt; 16) + (sum &amp; 0xffff);
+    sum += (sum &gt;&gt; 16);
+
+    return (USHORT) ~sum;
+}
+
+/**
+ * 返回值单位：ms
+ * begin 开始时间戳
+ * end   结束时间戳
+ */
+float timediff(struct timeval *begin, struct timeval *end){
+    int n;
+    // 先计算两个时间点相差多少微秒
+    n = ( end-&gt;tv_sec - begin-&gt;tv_sec ) * 1000000
+        + ( end-&gt;tv_usec - begin-&gt;tv_usec );
+
+    // 转化为毫秒返回
+    return (float) (n / 1000);
+}
+
+/**
+ * icmp 指向需要封装的ICMP报文结构体的指针
+ * sequence 该报文的序号
+ */
+void pack(struct icmp * icmp, int sequence){
+    icmp-&gt;type = ICMP_ECHO;
+    icmp-&gt;code = 0;
+    icmp-&gt;checksum = 0;
+    icmp-&gt;id = getpid();
+    icmp-&gt;sequence = sequence;
+    gettimeofday(&amp;icmp-&gt;timestamp, 0);
+    icmp-&gt;checksum = checkSum((USHORT *)icmp, ICMP_SIZE);
+}
+
+/**
+ * buf  指向接收到的IP报文缓冲区的指针
+ * len  接收到的IP报文长度
+ * addr 发送ICMP报文响应的主机IP地址
+ */
+int unpack(char * buf, int len, char * addr){
+   int i, ipheadlen;
+   struct ip * ip;
+   struct icmp * icmp;
+   float rtt;          // 记录往返时间
+   struct timeval end; // 记录接收报文的时间戳
+
+   ip = (struct ip *)buf;
+
+   // 计算ip首部长度，即ip首部的长度标识乘4
+   ipheadlen = ip-&gt;hlen &lt;&lt; 2;
+
+   // 越过ip首部，指向ICMP报文
+   icmp = (struct icmp *)(buf + ipheadlen);
+
+   // ICMP报文的总长度
+   len -= ipheadlen;
+
+   // 如果小于ICMP报文首部长度8
+   if(len &lt; 8){
+        printf(&quot;ICMP packets\&apos;s length is less than 8 \n&quot;);
+        return -1;
+   }
+
+   // 确保是我们所发的ICMP ECHO回应
+   if(icmp-&gt;type != ICMP_ECHOREPLY ||
+           icmp-&gt;id != getpid()){
+       printf(&quot;ICMP packets are not send by us \n&quot;);
+       return -1;
+   }
+
+   // 计算往返时间
+   gettimeofday(&amp;end, 0);
+   rtt = timediff(&amp;icmp-&gt;timestamp, &amp;end);
+
+   // 打印ttl，rtt，seq
+   printf(&quot;%d bytes from %s : icmp_seq=%u ttl=%d rtt=%fms \n&quot;,
+           len, addr, icmp-&gt;sequence, ip-&gt;ttl, rtt);
+
+   return 0;
+</code></pre><p>执行提示 socket() error 错误，也就是调用 socket 函数的时候出现了错误。这是因为我们创建的是原始套接字，原始套接字必须有 root 权限才能创建，所以我们可以加 sudo 执行 <a href="https://www.geniusrabbit.top/?p=1451" target="_blank" rel="noopener">Ping笔记(一)</a></p>
+<h6 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h6><p><a href="https://gist.github.com/sfantree/831ab83b751b6cf72e9e9a005f2d6e8b" target="_blank" rel="noopener">参考文献一</a></p>
+</div><div class="tags"><a href="/tags/c语言/">c语言</a><a href="/tags/ping/">ping</a></div><div class="post-share"><div class="bdsharebuttonbox"><span style="float:left;line-height: 28px;height: 28px;font-size:16px;font-weight:blod">分享到：</span><a href="#" data-cmd="more" class="bds_more"></a><a href="#" data-cmd="mshare" title="分享到一键分享" class="bds_mshare"></a><a href="#" data-cmd="fbook" title="分享到Facebook" class="bds_fbook"></a><a href="#" data-cmd="twi" title="分享到Twitter" class="bds_twi"></a><a href="#" data-cmd="linkedin" title="分享到linkedin" class="bds_linkedin"></a><a href="#" data-cmd="youdao" title="分享到有道云笔记" class="bds_youdao"></a><a href="#" data-cmd="evernotecn" title="分享到印象笔记" class="bds_evernotecn"></a><a href="#" data-cmd="weixin" title="分享到微信" class="bds_weixin"></a><a href="#" data-cmd="qzone" title="分享到QQ空间" class="bds_qzone"></a><a href="#" data-cmd="tsina" title="分享到新浪微博" class="bds_tsina"></a></div></div><div class="post-nav"><a href="/2017/08/28/openmp/" class="pre">OpenMP</a><a href="/2017/08/24/ping笔记/" class="next">Ping笔记(一)</a></div><div id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5My8xODY0MA=="></div></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">Contents</i></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数介绍-续"><span class="toc-text">函数介绍(续)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#重要的函数-socket"><span class="toc-text">重要的函数: socket</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#函数参数"><span class="toc-text">函数参数</span></a></li></ol></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#校验和算法"><span class="toc-text">校验和算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编码实现"><span class="toc-text">编码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#栗子"><span class="toc-text">栗子:</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#参考文献"><span class="toc-text">参考文献</span></a></li></ol></li></ol></li></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/08/03/compile/">compile</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/11/基于ns3的无线链路物理层仿真实验/">基于NS3的无线链路物理层仿真实验</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/31/chrome起始页/">chrome起始页修改</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/12/敏捷开发小记/">敏捷开发小记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/12/自动化测试与shell总结/">自动化测试与shell总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/06/linux小系统-小系统制作/">Linux小系统（一）-小系统制作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/04/linux内核编译/">Linux小系统（二）-内核编译</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/04/linux小系统-u盘启动/">Linux小系统（三）-U盘启动</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/11/计网笔记/">计网笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/16/visdomtensorboard可视化/">visdom&tensorBoardX可视化</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CMake/">CMake</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CodeStyle/">CodeStyle</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GTK/">GTK+</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/问题/">问题</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Makefile/">Makefile</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ping/">Ping</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SMS/">SMS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/测试/">测试</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/测试/软件工程/">软件工程</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqlite/">Sqlite</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ownCloud/">ownCloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/shadowsocks/">shadowsocks</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/协议/">协议</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/协议/计算机网络/">计算机网络</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/多线程/">多线程</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/测试/">测试</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/测试/软件工程/">软件工程</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/状态机/">状态机</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网站/">网站</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计划/">计划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机网络/">计算机网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/问题/">问题</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/集群/">集群</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> Tags</i></div><div class="tagcloud"><a href="/tags/sqlite/" style="font-size: 15px;">sqlite</a> <a href="/tags/2345/" style="font-size: 15px;">2345</a> <a href="/tags/ssl/" style="font-size: 15px;">ssl</a> <a href="/tags/CMke/" style="font-size: 15px;">CMke</a> <a href="/tags/codestyle/" style="font-size: 15px;">codestyle</a> <a href="/tags/GTK/" style="font-size: 15px;">GTK+</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/网站/" style="font-size: 15px;">网站</a> <a href="/tags/小系图/" style="font-size: 15px;">小系图</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/make/" style="font-size: 15px;">make</a> <a href="/tags/makefile/" style="font-size: 15px;">makefile</a> <a href="/tags/OpenMP/" style="font-size: 15px;">OpenMP</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/ownCloud/" style="font-size: 15px;">ownCloud</a> <a href="/tags/posix/" style="font-size: 15px;">posix</a> <a href="/tags/protocol/" style="font-size: 15px;">protocol</a> <a href="/tags/计算机网络/" style="font-size: 15px;">计算机网络</a> <a href="/tags/shadowsocks/" style="font-size: 15px;">shadowsocks</a> <a href="/tags/shell/" style="font-size: 15px;">shell</a> <a href="/tags/socket/" style="font-size: 15px;">socket</a> <a href="/tags/clion/" style="font-size: 15px;">clion</a> <a href="/tags/chrome/" style="font-size: 15px;">chrome</a> <a href="/tags/tensorboard/" style="font-size: 15px;">tensorboard</a> <a href="/tags/visdom/" style="font-size: 15px;">visdom</a> <a href="/tags/可视化/" style="font-size: 15px;">可视化</a> <a href="/tags/图标/" style="font-size: 15px;">图标</a> <a href="/tags/状态机/" style="font-size: 15px;">状态机</a> <a href="/tags/小记/" style="font-size: 15px;">小记</a> <a href="/tags/敏捷开发/" style="font-size: 15px;">敏捷开发</a> <a href="/tags/Ubuntu/" style="font-size: 15px;">Ubuntu</a> <a href="/tags/美化/" style="font-size: 15px;">美化</a> <a href="/tags/单元测试/" style="font-size: 15px;">单元测试</a> <a href="/tags/自动化测试/" style="font-size: 15px;">自动化测试</a> <a href="/tags/软件工程/" style="font-size: 15px;">软件工程</a> <a href="/tags/集成测试/" style="font-size: 15px;">集成测试</a> <a href="/tags/Permission-denied/" style="font-size: 15px;">Permission denied</a> <a href="/tags/502/" style="font-size: 15px;">502</a> <a href="/tags/phpstorm/" style="font-size: 15px;">phpstorm</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/kubernetes/" style="font-size: 15px;">kubernetes</a> <a href="/tags/c语言/" style="font-size: 15px;">c语言</a> <a href="/tags/ping/" style="font-size: 15px;">ping</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/naturalNet/" style="font-size: 15px;">naturalNet</a> <a href="/tags/SMS/" style="font-size: 15px;">SMS</a> <a href="/tags/短信/" style="font-size: 15px;">短信</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> Archive</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li></ul></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><span> Copyright &copy;<a href="/." rel="nofollow">geniusrabbit.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span></p><p></p></div></div></div><script type="text/javascript" src="/js/search.json.js?v=2.0.1"></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","weixin","tsina","qzone","linkedin","fbook","twi","print","renren","sqq","evernotecn","bdysc","tqq","tqf","bdxc","kaixin001","tieba","douban","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","h163","copy"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"]}};with(document)0[(getElementsByTagName('head')[0]||head).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script><script>(function(d, s) {
+  var j, e = d.getElementsByTagName('body')[0];
+  if (typeof LivereTower === 'function') { return; }
+  j = d.createElement(s);
+  j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+  j.async = true;
+  e.appendChild(j);
+})(document, 'script');
+</script></body></html>
