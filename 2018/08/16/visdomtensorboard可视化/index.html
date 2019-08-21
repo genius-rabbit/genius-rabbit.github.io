@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="吾之所向 一往无前 愈挫愈勇 再接再厉"><title>visdom&amp;tensorBoardX可视化 | GeniusRabbit</title><link rel="stylesheet" type="text/css" href="//fonts.neworld.org/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">visdom&amp;tensorBoardX可视化</h1><a id="logo" href="/.">GeniusRabbit</a><p class="description">技术是纯净的</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="search"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">visdom&amp;tensorBoardX可视化</h1><div class="post-meta"><a href="/2018/08/16/visdomtensorboard可视化/#comments" class="comment-count"></a><p><span class="date">Aug 16, 2018</span><span><a href="/categories/机器学习/" class="category">机器学习</a></span></p></div><div class="post-content"><h1 id="acc-loss曲线的可视化"><a href="#acc-loss曲线的可视化" class="headerlink" title="acc,loss曲线的可视化"></a>acc,loss曲线的可视化</h1><hr>
+<h2 id="visdom"><a href="#visdom" class="headerlink" title="visdom"></a>visdom</h2><ul>
+<li><p>安装</p>
+<p>$ pip install visdom</p>
+</li>
+</ul>
+<ul>
+<li><p>启用</p>
+<p>$ python -m visdom.server</p>
+</li>
+</ul>
+<ul>
+<li><p>使用</p>
+<p>import visdom<br>vis = visdom.Visdom(env=’model_env’)</p>
+</li>
+</ul>
+<h3 id="多曲线可视化-loss-acc"><a href="#多曲线可视化-loss-acc" class="headerlink" title="多曲线可视化(loss,acc)"></a>多曲线可视化(loss,acc)</h3><pre><code>vis.line(Y=np.column_stack(np.array([train_loss, train_acc,test_acc])),
+            X=np.column_stack(np.array([epoch + 1, epoch + 1, epoch + 1])),
+            win=&apos;main&apos;,
+            update=&apos;append&apos;)
+</code></pre><h2 id="tensorboardX"><a href="#tensorboardX" class="headerlink" title="tensorboardX"></a>tensorboardX</h2><ul>
+<li><p>安装</p>
+<p>$ pip install tensorboardX</p>
+</li>
+</ul>
+<ul>
+<li><p>使用</p>
+<p>from tensorboardX import SummaryWriter<br>writer = SummaryWriter(‘/path/to/log’)</p>
+</li>
+</ul>
+<h3 id="多曲线可视化-loss-acc-1"><a href="#多曲线可视化-loss-acc-1" class="headerlink" title="多曲线可视化(loss, acc)"></a>多曲线可视化(loss, acc)</h3><pre><code>writer.add_scalars(&apos;data/group&apos;, {&apos;test_loss&apos;:loss_vue, &apos;test_acc&apos;:acc_vue}, train_step)
+</code></pre></div><div class="tags"><a href="/tags/tensorboard/">tensorboard</a><a href="/tags/visdom/">visdom</a><a href="/tags/可视化/">可视化</a></div><div class="post-share"></div><div class="post-nav"><a href="/2018/09/11/计网笔记/" class="pre">计网笔记</a><a href="/2018/07/31/codestyle/" class="next">CodeStyle</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">Contents</i></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#acc-loss曲线的可视化"><span class="toc-text">acc,loss曲线的可视化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#visdom"><span class="toc-text">visdom</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多曲线可视化-loss-acc"><span class="toc-text">多曲线可视化(loss,acc)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tensorboardX"><span class="toc-text">tensorboardX</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多曲线可视化-loss-acc-1"><span class="toc-text">多曲线可视化(loss, acc)</span></a></li></ol></li></ol></li></ol></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><span> Copyright &copy;<a href="/." rel="nofollow">geniusrabbit.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span></p><p></p></div></div></div><script type="text/javascript" src="/js/search.json.js?v=2.0.1"></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script></body></html>

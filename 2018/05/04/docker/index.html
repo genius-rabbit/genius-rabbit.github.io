@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="吾之所向 一往无前 愈挫愈勇 再接再厉"><title>Docker | GeniusRabbit</title><link rel="stylesheet" type="text/css" href="//fonts.neworld.org/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Docker</h1><a id="logo" href="/.">GeniusRabbit</a><p class="description">技术是纯净的</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="search"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Docker</h1><div class="post-meta"><a href="/2018/05/04/docker/#comments" class="comment-count"></a><p><span class="date">May 04, 2018</span><span><a href="/categories/集群/" class="category">集群</a></span></p></div><div class="post-content"><p><a href="https://www.kubernetes.org.cn/3787.html" target="_blank" rel="noopener">参考1</a></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><ul>
+<li><p>卸载旧版本</p>
+<p>$ apt-get remove docker docker-engine docker.io</p>
+</li>
+</ul>
+<ul>
+<li><p>添加源并更新</p>
+<p>$ add-apt-repository  “deb [arch=amd64] <a href="https://download.docker.com/linux/ubuntu" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu</a> $(lsb_release -cs) stable”</p>
+</li>
+</ul>
+<pre><code>$ apt-get update
+</code></pre><ul>
+<li><p>安装最新的稳定版</p>
+<p>$ apt-get install -y docker-ce</p>
+</li>
+</ul>
+<ul>
+<li><p>安装制定版本</p>
+<p>#获取版本列表<br>$ apt-cache madison docker-ce<br>#指定版本安装<br>$ apt-get install -y docker-ce=17.09.1~ce-0~ubuntu</p>
+</li>
+</ul>
+<h1 id="设置并启动docker服务"><a href="#设置并启动docker服务" class="headerlink" title="设置并启动docker服务"></a>设置并启动docker服务</h1><h2 id="接受所有ip包转发"><a href="#接受所有ip包转发" class="headerlink" title="接受所有ip包转发"></a>接受所有ip包转发</h2><pre><code>$ vi /lib/systemd/system/docker.service
+#找到ExecStart=xxx，在这行上面加入一行，内容如下：(k8s的网络需要)
+ExecStartPost=/sbin/iptables -I FORWARD -s 0.0.0.0/0 -j ACCEPT
+</code></pre><h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><pre><code>$ systemctl daemon-reload
+$ service docker start
+</code></pre><h2 id="系统设置"><a href="#系统设置" class="headerlink" title="系统设置"></a>系统设置</h2><h3 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3><pre><code>$ ufw disable
+#查看状态
+$ ufw status
+</code></pre><h3 id="设置系统参数"><a href="#设置系统参数" class="headerlink" title="设置系统参数"></a>设置系统参数</h3><pre><code>#写入配置文件
+$ cat &lt;&lt;EOF &gt; /etc/sysctl.d/k8s.conf
+net.ipv4.ip_forward = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+#生效配置文件
+$ sysctl -p /etc/sysctl.d/k8s.conf
+</code></pre><h3 id="配置host"><a href="#配置host" class="headerlink" title="配置host"></a>配置host</h3><pre><code>#配置host，使每个Node都可以通过名字解析到ip地址
+$ vi /etc/hosts
+#加入如下片段(ip地址和servername替换成自己的)
+192.168.1.101 server01
+192.168.1.102 server02
+192.168.1.103 server03
+</code></pre></div><div class="tags"><a href="/tags/docker/">docker</a></div><div class="post-share"></div><div class="post-nav"><a href="/2018/05/04/kubernetes/" class="pre">Kubernetes</a><a href="/2018/02/26/c工程目录结构/" class="next">C++工程目录结构</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">Contents</i></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装docker"><span class="toc-text">安装docker</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设置并启动docker服务"><span class="toc-text">设置并启动docker服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#接受所有ip包转发"><span class="toc-text">接受所有ip包转发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动服务"><span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统设置"><span class="toc-text">系统设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭防火墙"><span class="toc-text">关闭防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置系统参数"><span class="toc-text">设置系统参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置host"><span class="toc-text">配置host</span></a></li></ol></li></ol></li></ol></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><span> Copyright &copy;<a href="/." rel="nofollow">geniusrabbit.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span></p><p></p></div></div></div><script type="text/javascript" src="/js/search.json.js?v=2.0.1"></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script></body></html>

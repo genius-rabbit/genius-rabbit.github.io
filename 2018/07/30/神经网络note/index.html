@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="吾之所向 一往无前 愈挫愈勇 再接再厉"><title>神经网络Note | GeniusRabbit</title><link rel="stylesheet" type="text/css" href="//fonts.neworld.org/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">神经网络Note</h1><a id="logo" href="/.">GeniusRabbit</a><p class="description">技术是纯净的</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="search"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">神经网络Note</h1><div class="post-meta"><a href="/2018/07/30/神经网络note/#comments" class="comment-count"></a><p><span class="date">Jul 30, 2018</span><span><a href="/categories/机器学习/" class="category">机器学习</a></span></p></div><div class="post-content"><h1 id="神经网络笔记"><a href="#神经网络笔记" class="headerlink" title="神经网络笔记"></a>神经网络笔记</h1><ul>
+<li>代码链接<a href="https://github.com/genius-rabbit/dianStudy/tree/master/naturalNetWork" target="_blank" rel="noopener">github</a> :wink:</li>
+</ul>
+<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><h5 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h5><pre><code>train_data = torchvision.datasets.CIFAR10(
+    root=&apos;Datadir&apos;, train=True, transform=transforms.ToTensor(),download=True
+)
+</code></pre><ul>
+<li>torchvision.datasets.CIFAR10:代表这是cifar10数据集,若为torchvision.datasets.MNIST则为mnist数据集</li>
+<li>root:数据集的存放位置</li>
+<li>train=True:代表这是训练集</li>
+<li><p>download=True:如果数据不存在就会自行下载</p>
+<p>train_loader = Data.DataLoader(dataset=train_data, batch_size=4, shuffle=True, num_workers=2)</p>
+</li>
+</ul>
+<ul>
+<li>dataset=train_data:代表从train_data加载数据</li>
+<li>batch_size: 批训练的数据个数</li>
+<li>shuffle: 是否要打乱数据(打乱比较好)</li>
+<li>num_workers: 多线程读取数据</li>
+</ul>
+<h5 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h5><pre><code>optimizer = optim.SGD(net.parameters(), lr=0.03)
+</code></pre><ul>
+<li><p>定义优化器</p>
+<ul>
+<li>lr=0.03: 学习率为0.03</li>
+<li>SGD: 使用SGD优化器</li>
+</ul>
+<p>loss_func = nn.CrossEntropyLoss()</p>
+</li>
+</ul>
+<ul>
+<li><p>定义损失函数</p>
+<ul>
+<li>CrossEntropyLoss:交叉熵损失</li>
+</ul>
+<h1 id="循环使用数据训练50次"><a href="#循环使用数据训练50次" class="headerlink" title="循环使用数据训练50次"></a>循环使用数据训练50次</h1><p>for epoch in range(50):</p>
+<pre><code># 训练
+# 每次训练之前的初始化loss&amp;acc
+train_loss = 0
+train_acc = 0
+for i, data in enumerate(train_loader, 0):
+    # 得到数据
+    inputs, lables = data
+    # 包装数据
+    inputs, lables = Variable(inputs), Variable(lables)
+    # 梯度清零
+    optimizer.zero_grad()
+    # 将输入输进网络&amp;forward
+    out = net(inputs)
+    # 计算损失
+    loss = loss_func(out, lables)
+    train_loss += loss.item()
+
+    # 计算正确率
+    pred = torch.max(out, 1)[1]
+    train_acc += (pred == lables).sum().item()
+
+    # backward&amp;optimize
+    loss.backward()
+    optimizer.step()
+
+    train_loss += loss.data.item()
+
+    if i % 2000 == 1999:
+        # 格式化输出loss&amp;acc
+        print(&apos;[%d,%5d] loss:%.6f&apos; % (epoch+1, i+1, train_loss/2000))
+        print(&apos;[%d,%5d] acc: %.6f&apos; % (epoch + 1, i + 1, train_acc / (2000 * lables.size(0))))
+        # 训练2000组数据打印数据之后的初始化
+        train_acc = 0
+        train_loss = 0
+        torch.save(net, &apos;Alex0.03.pkl&apos;)
+# 测试
+# 正确率初始化
+train_acc1 = 0
+for i, data in enumerate(test_loader, 0):
+    # 得到数据并包装数据
+    inputs, lables = data
+    inputs, lables = Variable(inputs), Variable(lables)
+    # 计算正确率
+    out = net(inputs)
+    pred = torch.max(out, 1)[1]
+    train_acc1 += (pred == lables).sum().item()
+    # 阶段性输出
+    if i % 1000 == 999:
+        print(&apos;testDataAcc:[%d,%5d] acc: %.6f&apos; % (epoch + 1, i + 1, train_acc1 / (1000 * lables.size(0))))
+        train_acc1 = 0
+</code></pre></li>
+</ul>
+<h2 id="全连接神经网络"><a href="#全连接神经网络" class="headerlink" title="全连接神经网络"></a>全连接神经网络</h2><h3 id="note"><a href="#note" class="headerlink" title="note"></a>note</h3><ul>
+<li>每层的节点数和层数可自己随意定义</li>
+</ul>
+<h3 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h3><ul>
+<li><a href="https://github.com/genius-rabbit/dianStudy/blob/master/naturalNetWork/mnist.py" target="_blank" rel="noopener">mnist全连接参考代码</a></li>
+<li><a href="https://github.com/genius-rabbit/dianStudy/blob/master/naturalNetWork/cifar10.py" target="_blank" rel="noopener">cifar10全连接参考代码</a></li>
+</ul>
+<h2 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h2><h3 id="参数计算"><a href="#参数计算" class="headerlink" title="参数计算"></a>参数计算</h3><ul>
+<li>输入矩阵的格式:四个维度(样本数,图像高度,图像宽度,图像通道数)</li>
+<li>卷积核(权重矩阵):四个维度(卷积核高,卷积核宽,输入通道数,输出通道数)<ul>
+<li>卷积核输入的通道数由输入矩阵的通道数决定</li>
+<li>输出矩阵的通道数由卷积核的输出通道数决定</li>
+<li>输出矩阵的高和宽由输入矩阵,卷积核,扫描方式(padding,stride)所决定</li>
+</ul>
+</li>
+<li>卷积之后的图像大小计算:outputSize = (inputSize + 2*padding - kernelSize)/stride + 1</li>
+</ul>
+<h3 id="LeNet-AlexNet-VGG-ResNet-GoogLeNet"><a href="#LeNet-AlexNet-VGG-ResNet-GoogLeNet" class="headerlink" title="LeNet AlexNet VGG ResNet GoogLeNet"></a>LeNet AlexNet VGG ResNet GoogLeNet</h3><h4 id="leNet"><a href="#leNet" class="headerlink" title="leNet"></a>leNet</h4><ul>
+<li><a href="https://github.com/genius-rabbit/dianStudy/blob/master/naturalNetWork/leNet.py" target="_blank" rel="noopener">cifar10数据集参考代码</a> <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/LeNet.png" alt></li>
+<li>输入是32x32的图像</li>
+<li>C1是一个卷积层,卷积核为5x5,步长为1,没有填充,由(32-2*0-5)/1+1=28,得输出图像为28x28</li>
+<li>S2是一个降采样层,kernelSize等于2,步长为2,没有填充,得到输出为14x14</li>
+<li>C3是一个卷积层,卷积核大小为5x5,步长为1,没有填充,得输出图像为10x10</li>
+<li>S4是一个降采样层,kernelSize等于2,步长为2,没有填充,得到输出为5x5</li>
+<li>C5是一个卷积层,卷积核大小为5x5,步长为1,没有填充,得输出图像为1x1</li>
+<li>F6是一个全连接层</li>
+<li>输出有十个参数</li>
+</ul>
+<h4 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h4><p>-<a href="https://github.com/genius-rabbit/dianStudy/blob/master/naturalNetWork/AlexNet.py" target="_blank" rel="noopener">cifar10数据集参考代码</a> <strong>代码做了简化,使用单个运算核心运行的</strong> <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/AlexNet.png" alt> note未跟随代码 - 卷积部分分为上下两块,卷积使用数据要看连接的虚线 - LRN层:对当前层的输出结果做平滑处理</p>
+<h4 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h4><ul>
+<li><a href="https://github.com/genius-rabbit/dianStudy/blob/master/naturalNetWork/VGG.py" target="_blank" rel="noopener">cifar10数据集参考代码</a></li>
+<li>连续conv较多,计算量巨大</li>
+</ul>
+<h4 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h4><ul>
+<li><a href="https://github.com/genius-rabbit/dianStudy/blob/master/naturalNetWork/ResNet.py" target="_blank" rel="noopener">cifar10数据集参考代码</a></li>
+</ul>
+<h6 id="深度网络的退化问题"><a href="#深度网络的退化问题" class="headerlink" title="深度网络的退化问题"></a>深度网络的退化问题</h6><pre><code>网络深度增加时,网络准确度出现饱和甚至开始下降
+</code></pre><h6 id="使用残差学习解决退化问题"><a href="#使用残差学习解决退化问题" class="headerlink" title="使用残差学习解决退化问题"></a>使用残差学习解决退化问题</h6><p>残差学习相比原始特征直接学习更容易,当残差为0时,此时堆积层仅仅做了恒等映射.至少网络性能不会下降,实际上残差不会为0,也会使得堆积层在输入特征基础上学习到新的特征,从而有更好的性能 - 残差学习相当于一种短路机制</p>
+<pre><code>残差学习单元
+</code></pre><p><img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/ResNet.png" alt></p>
+<pre><code>不同深度的ResNet网络
+</code></pre><p><img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/ResNetAll.png" alt></p>
+<h4 id="googLeNet"><a href="#googLeNet" class="headerlink" title="googLeNet"></a>googLeNet</h4><ul>
+<li><a href="http://noahsnail.com/2017/07/21/2017-7-21-GoogleNet%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91%E2%80%94%E2%80%94%E4%B8%AD%E6%96%87%E7%89%88/" target="_blank" rel="noopener">论文翻译中文版</a></li>
+<li><a href="https://github.com/kuangliu/pytorch-cifar/blob/master/models/googlenet.py" target="_blank" rel="noopener">cifar10数据集参考代码</a> GoogLeNet 与传统神经网络相比提出了Inception结构,用于增加神经网络的宽度和深度,Inception模型主要考虑多个不同的卷积核能够增强网络的适应能力,4个分支在最后通过一个聚合操作合并</li>
+</ul>
+<h6 id="Inception"><a href="#Inception" class="headerlink" title="Inception"></a>Inception</h6><p><a href="https://blog.csdn.net/hejin_some/article/details/78636586" target="_blank" rel="noopener">参考博客</a></p>
+<ul>
+<li><p>v1 版本1: <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/v10.png" alt> 随后文章指出这种 naive 结构存在着<strong>问题</strong>：每一层 Inception module 的 filters 参数量为所有分支上的总数和，多层 Inception 最终将导致 model 的参数数量庞大，对计算资源有更大的依赖 版本2: <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/v11.png" alt> <strong>改进</strong>:Inception module with dimension reduction,在不损失模型特征表示能力的前提下，尽量减少 filters 的数量，达到降低模型复杂度的目的</p>
+</li>
+<li><p>v2 <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/v2.jpeg" alt> 使用两个3*3的卷积核代替一个5*5的卷积核,在降低参数的同时,增加了更多的非线性变换</p>
+</li>
+<li><p>v3 <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/v31.png" alt> <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/v32.png" alt> <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/v33.png" alt> 将一个3*3的卷积核拆解成3*1和1*3的卷积核 引入了 Factorization into small convolutions 的思想,将一个较大的二维卷积拆解为两个较小的一维卷积,加速了运算并减轻了过拟合</p>
+</li>
+<li><p>v4 <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/v41.png" alt> <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/v42.png" alt> <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/08/v43.png" alt></p>
+<p>V4 相比 V3 主要是结合了微软的 ResNet</p>
+</li>
+</ul>
+</div><div class="tags"><a href="/tags/naturalNet/">naturalNet</a></div><div class="post-share"></div><div class="post-nav"><a href="/2018/07/31/apache配置ssl/" class="pre">Apache配置ssl</a><a href="/2018/07/10/owncloud-搭建/" class="next">owncloud 搭建</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">Contents</i></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#神经网络笔记"><span class="toc-text">神经网络笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Note"><span class="toc-text">Note</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#数据处理"><span class="toc-text">数据处理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#训练模型"><span class="toc-text">训练模型</span></a></li></ol></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#循环使用数据训练50次"><span class="toc-text">循环使用数据训练50次</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#全连接神经网络"><span class="toc-text">全连接神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#note"><span class="toc-text">note</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考代码"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#卷积神经网络"><span class="toc-text">卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参数计算"><span class="toc-text">参数计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LeNet-AlexNet-VGG-ResNet-GoogLeNet"><span class="toc-text">LeNet AlexNet VGG ResNet GoogLeNet</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#leNet"><span class="toc-text">leNet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AlexNet"><span class="toc-text">AlexNet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VGG"><span class="toc-text">VGG</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ResNet"><span class="toc-text">ResNet</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#深度网络的退化问题"><span class="toc-text">深度网络的退化问题</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#使用残差学习解决退化问题"><span class="toc-text">使用残差学习解决退化问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#googLeNet"><span class="toc-text">googLeNet</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Inception"><span class="toc-text">Inception</span></a></li></ol></li></ol></li></ol></li></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><span> Copyright &copy;<a href="/." rel="nofollow">geniusrabbit.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span></p><p></p></div></div></div><script type="text/javascript" src="/js/search.json.js?v=2.0.1"></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script></body></html>
