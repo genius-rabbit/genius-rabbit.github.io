@@ -71,11 +71,11 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[delta@delta: code ]$ gcc -v func.c hello.c</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对func.c的预处理和编译过程</span></span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/cc1 func.c -o /tmp/ccfC6J5E.s</span><br><span class="line"><span class="comment"># 对func.c产生的.s文件汇编产生二进制文件</span></span><br><span class="line">as -v --64 -o /tmp/ccF4Bar0.o /tmp/ccfC6J5E.s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对hello.c的预处理和编译过程</span></span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/cc1 hello.c -o /tmp/ccfC6J5E.s</span><br><span class="line"><span class="comment"># 对hello.c产生的.s文件汇编产生二进制文件</span></span><br><span class="line">as -v --64 -o /tmp/cc7UmhQl.o /tmp/ccfC6J5E.s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接过程</span></span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/collect2 -dynamic-linker ld-linux-x86-64.so.2 Scrt1.o crti.o crtbeginS.o /tmp/ccF4Bar0.o /tmp/cc7UmhQl.o crtendS.o crtn.o</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="三、链接过程解析"><a href="#三、链接过程解析" class="headerlink" title="三、链接过程解析"></a>三、链接过程解析</h2><p><strong><em>Q:</em></strong></p>
+<h2 id="三、链接过程解析"><a href="#三、链接过程解析" class="headerlink" title="三、链接过程解析"></a>三、链接过程解析</h2><p><strong>Q:</strong></p>
 <ul>
-<li><p><em>目标文件的格式是怎样的？</em></p>
+<li><p>目标文件的格式是怎样的？</p>
 </li>
-<li><p><em>多个目标是如何链接到一起的？</em></p>
+<li><p>多个目标是如何链接到一起的？</p>
 </li>
 </ul>
 <h3 id="3-1-目标文件"><a href="#3-1-目标文件" class="headerlink" title="3.1 目标文件"></a>3.1 目标文件</h3><h4 id="3-1-1目标文件类型"><a href="#3-1-1目标文件类型" class="headerlink" title="3.1.1目标文件类型"></a>3.1.1目标文件类型</h4><ul>
