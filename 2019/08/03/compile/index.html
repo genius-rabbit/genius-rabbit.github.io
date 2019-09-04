@@ -277,15 +277,79 @@
 <li><p><strong>定义：</strong>在链接中，目标文件之间相互拼合实际上是目标文件之间对地址的引用，即对函数和变量地址的引用。在链接中，将函数和变量统称为<strong>符号（Symbol）</strong>，函数名或变量名称为<strong>符号名（Symbol Name）</strong>。</p>
 </li>
 <li><p>每个目标文件都有一个符号表记录了目标文件中用到的所有符号（每个定义的符号都有一个符号值，对于函数和变量来说，符号值就是它们的地址），<strong>常见分类</strong>如下</p>
-<p>| 符号类型                                           | 说明                                     |<br>| ————————————————– | —————————————- |<br>| 定义在本目标文件中的全局符号                       | 可以被其它目标文件引用的符号             |<br>| 在本目标文件中引用的符号，却没有定义在本目标文件中 | 外部符号（External Symbol）              |<br>| 段名，由编译器产生                                 | 它的值就是该段的起始地址                 |<br>| 局部符号                                           | 只在编译单元内部可见，链接器往往忽略它们 |<br>| 行号信息                                           | 目标文件指令与代码行的对应关系，可选     |</p>
 </li>
 </ol>
+<table>
+<thead>
+<tr>
+<th>符号类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义在本目标文件中的全局符号</td>
+<td>可以被其它目标文件引用的符号</td>
+</tr>
+<tr>
+<td>在本目标文件中引用的符号，却没有定义在本目标文件中</td>
+<td>外部符号（External Symbol）</td>
+</tr>
+<tr>
+<td>段名，由编译器产生</td>
+<td>它的值就是该段的起始地址</td>
+</tr>
+<tr>
+<td>局部符号</td>
+<td>只在编译单元内部可见，链接器往往忽略它们</td>
+</tr>
+<tr>
+<td>行号信息</td>
+<td>目标文件指令与代码行的对应关系，可选</td>
+</tr>
+</tbody>
+</table>
 <h5 id="3-1-4-2-符号结构分析"><a href="#3-1-4-2-符号结构分析" class="headerlink" title="3.1.4.2 符号结构分析"></a>3.1.4.2 符号结构分析</h5><ul>
 <li><p>符号表结构：符号表结构体定义在/usr/include/elf.h中，如下所示</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf64_Word	st_name;		<span class="comment">/* Symbol name (string tbl index) */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span>	st_info;		<span class="comment">/* Symbol type and binding */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> st_other;		<span class="comment">/* Symbol visibility */</span></span><br><span class="line">  Elf64_Section	st_shndx;		<span class="comment">/* Section index */</span></span><br><span class="line">  Elf64_Addr	st_value;		<span class="comment">/* Symbol value */</span></span><br><span class="line">  Elf64_Xword	st_size;		<span class="comment">/* Symbol size */</span></span><br><span class="line">&#125; Elf64_Sym;</span><br></pre></td></tr></table></figure>
 <p>Elf64_Sym成员解释</p>
-<p>| 变量名   | 说明                     |<br>| ——– | ———————— |<br>| st_name  | 符号名在字符串表中的下标 |<br>| st_info  | 符号类型和绑定信息       |<br>| st_other | 符号可见性               |<br>| st_shndx | 符号所在的段             |<br>| st_value | 符号对应的值             |<br>| st_size  | 符号大小                 |</p>
 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>st_name</td>
+<td>符号名在字符串表中的下标</td>
+</tr>
+<tr>
+<td>st_info</td>
+<td>符号类型和绑定信息</td>
+</tr>
+<tr>
+<td>st_other</td>
+<td>符号可见性</td>
+</tr>
+<tr>
+<td>st_shndx</td>
+<td>符号所在的段</td>
+</tr>
+<tr>
+<td>st_value</td>
+<td>符号对应的值</td>
+</tr>
+<tr>
+<td>st_size</td>
+<td>符号大小</td>
+</tr>
+</tbody>
+</table>
+<ul>
 <li><p>使用<code>gcc -c hello.c -o hello.o</code>生成目标文件hello.o，并使用<code>readelf -s hello.o</code>读取目标文件的符号表部分</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Symbol table <span class="string">'.symtab'</span> contains 24 entries:</span><br><span class="line">   Num:    Value          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND </span><br><span class="line">     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS hello.c</span><br><span class="line">     2: 0000000000000000     0 SECTION LOCAL  DEFAULT    1 </span><br><span class="line">     3: 0000000000000000     0 SECTION LOCAL  DEFAULT    3 </span><br><span class="line">     4: 0000000000000000     0 SECTION LOCAL  DEFAULT    4 </span><br><span class="line">     5: 0000000000000000     0 SECTION LOCAL  DEFAULT    5 </span><br><span class="line">     6: 0000000000000000     0 SECTION LOCAL  DEFAULT    6 </span><br><span class="line">     7: 0000000000000004     4 OBJECT  LOCAL  DEFAULT    4 static_global_uninit_var</span><br><span class="line">     8: 0000000000000008     4 OBJECT  LOCAL  DEFAULT    4 static_global_init_var_0</span><br><span class="line">     9: 0000000000000004     4 OBJECT  LOCAL  DEFAULT    3 static_global_init_var_1</span><br><span class="line">    10: 0000000000000008     4 OBJECT  LOCAL  DEFAULT    3 static_local_init_var_1.1</span><br><span class="line">    11: 000000000000000c     4 OBJECT  LOCAL  DEFAULT    4 static_local_init_var_0.1</span><br><span class="line">    12: 0000000000000010     4 OBJECT  LOCAL  DEFAULT    4 static_local_uninit_var.1</span><br><span class="line">    13: 0000000000000000     0 SECTION LOCAL  DEFAULT    9 </span><br><span class="line">    14: 0000000000000000     0 SECTION LOCAL  DEFAULT   10 </span><br><span class="line">    15: 0000000000000000     0 SECTION LOCAL  DEFAULT    8 </span><br><span class="line">    16: 0000000000000004     4 OBJECT  GLOBAL DEFAULT  COM global_uninit_var</span><br><span class="line">    17: 0000000000000000     4 OBJECT  GLOBAL DEFAULT    4 global_init_var_0</span><br><span class="line">    18: 0000000000000000     4 OBJECT  GLOBAL DEFAULT    3 global_init_var_1</span><br><span class="line">    19: 0000000000000000     8 OBJECT  GLOBAL DEFAULT    6 const_string_var</span><br><span class="line">    20: 0000000000000000    53 FUNC    GLOBAL DEFAULT    1 main</span><br><span class="line">    21: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND _GLOBAL_OFFSET_TABLE_</span><br><span class="line">    22: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND func_call_test</span><br><span class="line">    23: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND export_func_var</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">注：</span><br><span class="line">	1. static_global_uninit_var、static_local_init_var_0和static_local_uninit_var、static_global_init_var_0和global_init_var_0在bss段（因为初始化为0和不初始化是一样的）</span><br><span class="line">	2. static_global_init_var_1、static_local_init_var_1和global_init_var_1在data段（初始化的全局变量）</span><br><span class="line">	3. static变量的类型均为LOCAL，表明该符号只为该目标文件内部可见；非Static全局变量的类型为GLOBAL，表明该符号外部可见</span><br><span class="line">	4. 在hello.c中引用了func_call_test和export_func_var符号，但是没有定义，所以它的Ndx是UND（注：<span class="built_in">export</span>一个变量但是并未使用则符号表中不会出现这个边浪符号信息；<span class="built_in">export</span>一个不存在的变量但是并未使用编译不会报错；<span class="built_in">export</span>一个不存在的变量并使用会报错 &lt;**注意系统环境**&gt; ）</span><br><span class="line">	5. 未初始化的全局非静态变量global_uninit_var在COM块中</span><br><span class="line">	6. const_string_var在.data.rel.local段中</span><br></pre></td></tr></table></figure>
@@ -302,8 +366,43 @@
 <p>使用<code>g++ -c hello.cpp -o hello_cpp.o</code>编译产生目标文件hello_cpp.o，使用<code>readelf -a hello_cpp.o</code>查看目标文件中的符号表，如下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Symbol table <span class="string">'.symtab'</span> contains 18 entries:</span><br><span class="line">   Num:    Value          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND </span><br><span class="line">     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS hello.cpp</span><br><span class="line">     2: 0000000000000000     0 SECTION LOCAL  DEFAULT    1 </span><br><span class="line">     3: 0000000000000000     0 SECTION LOCAL  DEFAULT    3 </span><br><span class="line">     4: 0000000000000000     0 SECTION LOCAL  DEFAULT    4 </span><br><span class="line">     5: 0000000000000000     0 SECTION LOCAL  DEFAULT    5 </span><br><span class="line">     6: 0000000000000000     0 SECTION LOCAL  DEFAULT    7 </span><br><span class="line">     7: 0000000000000000     0 SECTION LOCAL  DEFAULT    8 </span><br><span class="line">     8: 0000000000000000     0 SECTION LOCAL  DEFAULT    6 </span><br><span class="line">     9: 0000000000000000    12 FUNC    GLOBAL DEFAULT    1 _Z4funci</span><br><span class="line">    10: 000000000000000c    16 FUNC    GLOBAL DEFAULT    1 _Z4funcf</span><br><span class="line">    11: 000000000000001c    16 FUNC    GLOBAL DEFAULT    1 _ZN1C4funcEi</span><br><span class="line">    12: 000000000000002c    16 FUNC    GLOBAL DEFAULT    1 _ZN1C2C24funcEi</span><br><span class="line">    13: 000000000000003c    12 FUNC    GLOBAL DEFAULT    1 _ZN1N4funcEi</span><br><span class="line">    14: 0000000000000048    16 FUNC    GLOBAL DEFAULT    1 _ZN1N1C4funcEi</span><br><span class="line">    15: 0000000000000058   119 FUNC    GLOBAL DEFAULT    1 main</span><br><span class="line">    16: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND _GLOBAL_OFFSET_TABLE_</span><br><span class="line">    17: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND __stack_chk_fail</span><br></pre></td></tr></table></figure>
 <p>可以看出函数签名与修饰后的名称的对应关系</p>
-<p>| 函数签名             | 修饰后名称（符号名） |<br>| ——————– | ——————– |<br>| int func(int)        | _Z4funci             |<br>| float func(float)    | _Z4funcf             |<br>| int C::func(int)     | _ZN1C4funcEi         |<br>| int C::C2::func(int) | _ZN1C2C24funcEi      |<br>| int N::func(int)     | _ZN1N4funcEi         |<br>| int N::C::func(int)  | _ZN1N1C4funcEi       |</p>
 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数签名</th>
+<th>修饰后名称（符号名）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int func(int)</td>
+<td>_Z4funci</td>
+</tr>
+<tr>
+<td>float func(float)</td>
+<td>_Z4funcf</td>
+</tr>
+<tr>
+<td>int C::func(int)</td>
+<td>_ZN1C4funcEi</td>
+</tr>
+<tr>
+<td>int C::C2::func(int)</td>
+<td>_ZN1C2C24funcEi</td>
+</tr>
+<tr>
+<td>int N::func(int)</td>
+<td>_ZN1N4funcEi</td>
+</tr>
+<tr>
+<td>int N::C::func(int)</td>
+<td>_ZN1N1C4funcEi</td>
+</tr>
+</tbody>
+</table>
+<ul>
 <li><p>extern “C”：C++编译器会将在extern C大括号内的内部代码当做C语言代码处理，也就是名称修饰机制将不会起作用。当需要兼容C和C++，例如在C++代码中调用C中的memset函数，可以使用C++的宏<code>__cplusplus</code>，C++在编译程序时会默认定义这个宏</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> “C” &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memset</span><span class="params">(<span class="keyword">void</span> *, <span class="keyword">int</span>, <span class="keyword">size_t</span>)</span></span>;</span><br><span class="line">    </span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 </li>
@@ -379,11 +478,68 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[delta@delta: code ]$ gcc -v func.c hello.c</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对func.c的预处理和编译过程</span></span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/cc1 func.c -o /tmp/ccfC6J5E.s</span><br><span class="line"><span class="comment"># 对func.c产生的.s文件汇编产生二进制文件</span></span><br><span class="line">as -v --64 -o /tmp/ccF4Bar0.o /tmp/ccfC6J5E.s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对hello.c的预处理和编译过程</span></span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/cc1 hello.c -o /tmp/ccfC6J5E.s</span><br><span class="line"><span class="comment"># 对hello.c产生的.s文件汇编产生二进制文件</span></span><br><span class="line">as -v --64 -o /tmp/cc7UmhQl.o /tmp/ccfC6J5E.s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接过程</span></span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/collect2 -dynamic-linker ld-linux-x86-64.so.2 Scrt1.o crti.o crtbeginS.o /tmp/ccF4Bar0.o /tmp/cc7UmhQl.o crtendS.o crtn.o</span><br><span class="line"></span><br><span class="line"><span class="comment">############################################</span></span><br><span class="line"><span class="comment"># 实际各个目标文件的位置</span></span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o</span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o</span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o</span><br><span class="line">/tmp/ccF4Bar0.o</span><br><span class="line">/tmp/cc7UmhQl.o</span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o</span><br><span class="line">/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o</span><br></pre></td></tr></table></figure>
 <p>可以看到Scrt1.o crti.o crtbeginS.o /tmp/ccF4Bar0.o /tmp/cc7UmhQl.o crtendS.o crtn.o被链接入了最终可执行文件</p>
 <p><strong>各个文件的解释</strong>（<a href="https://stackoverflow.com/questions/16436035/whats-the-usage-of-mcrt1-o-and-scrt1-o" target="_blank" rel="noopener">来源</a>）</p>
-<p>| 目标文件    | 说明                                                         |<br>| ———– | ———————————————————— |<br>| crt0.o      | Older style of the initial runtime code ?  Usually not generated anymore  with Linux toolchains, but often found in bare metal toolchains.  Serves  same purpose as crt1.o (see below). |<br>| crt1.o      | Newer style of the initial runtime code.  Contains the _start symbol which  sets up the env with argc/argv/libc _init/libc _fini before jumping to the  libc main.  glibc calls this file ‘start.S’. |<br>| crti.o      | Defines the function prolog; _init in the .init section and _fini in the  .fini section.  glibc calls this ‘initfini.c’. |<br>| crtn.o      | Defines the function epilog.  glibc calls this ‘initfini.c’. |<br>| scrt1.o     | Used in place of crt1.o when generating PIEs.                |<br>| gcrt1.o     | Used in place of crt1.o when generating code with profiling information.  Compile with -pg.  Produces output suitable for the gprof util. |<br>| Mcrt1.o     | Like gcrt1.o, but is used with the prof utility.  glibc installs this as  a dummy file as it’s useless on linux systems. |<br>| crtbegin.o  | GCC uses this to find the start of the constructors.         |<br>| crtbeginS.o | Used in place of crtbegin.o when generating shared objects/PIEs. |<br>| crtbeginT.o | Used in place of crtbegin.o when generating static executables. |<br>| crtend.o    | GCC uses this to find the start of the destructors.          |<br>| crtendS.o   | Used in place of crtend.o when generating shared objects/PIEs. |</p>
-<p><strong>通常链接顺序</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crt1.o crti.o crtbegin.o [-L paths] [user objects] [gcc libs] [C libs] [gcc libs] crtend.o crtn.o</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>目标文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>crt0.o</td>
+<td>Older style of the initial runtime code ?  Usually not generated anymore  with Linux toolchains, but often found in bare metal toolchains.  Serves  same purpose as crt1.o (see below).</td>
+</tr>
+<tr>
+<td>crt1.o</td>
+<td>Newer style of the initial runtime code.  Contains the _start symbol which  sets up the env with argc/argv/libc _init/libc _fini before jumping to the  libc main.  glibc calls this file ‘start.S’.</td>
+</tr>
+<tr>
+<td>crti.o</td>
+<td>Defines the function prolog; _init in the .init section and _fini in the  .fini section.  glibc calls this ‘initfini.c’.</td>
+</tr>
+<tr>
+<td>crtn.o</td>
+<td>Defines the function epilog.  glibc calls this ‘initfini.c’.</td>
+</tr>
+<tr>
+<td>scrt1.o</td>
+<td>Used in place of crt1.o when generating PIEs.</td>
+</tr>
+<tr>
+<td>gcrt1.o</td>
+<td>Used in place of crt1.o when generating code with profiling information.  Compile with -pg.  Produces output suitable for the gprof util.</td>
+</tr>
+<tr>
+<td>Mcrt1.o</td>
+<td>Like gcrt1.o, but is used with the prof utility.  glibc installs this as  a dummy file as it’s useless on linux systems.</td>
+</tr>
+<tr>
+<td>crtbegin.o</td>
+<td>GCC uses this to find the start of the constructors.</td>
+</tr>
+<tr>
+<td>crtbeginS.o</td>
+<td>Used in place of crtbegin.o when generating shared objects/PIEs.</td>
+</tr>
+<tr>
+<td>crtbeginT.o</td>
+<td>Used in place of crtbegin.o when generating static executables.</td>
+</tr>
+<tr>
+<td>crtend.o</td>
+<td>GCC uses this to find the start of the destructors.</td>
+</tr>
+<tr>
+<td>crtendS.o</td>
+<td>Used in place of crtend.o when generating shared objects/PIEs.</td>
+</tr>
+</tbody>
+</table>
+<p>  <strong>通常链接顺序</strong>：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crt1.o crti.o crtbegin.o [-L paths] [user objects] [gcc libs] [C libs] [gcc libs] crtend.o crtn.o</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p><strong>链接过程控制</strong>：链接过程需要考虑很多内容：使用哪些目标文件？使用哪些库文件？是否保留调试信息、输出文件格式等等。</p>
 <p><strong>链接器控制链接过程方法</strong>：</p>
