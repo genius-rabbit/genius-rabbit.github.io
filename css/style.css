@@ -43,7 +43,7 @@ em {
 }
 img,
 button {
-  border-radius: 10%;
+  border: none;
 }
 form,
 input,
@@ -224,6 +224,7 @@ body {
   padding: 0 50px;
   max-width: 1200px;
   margin: 0 auto;
+  overflow: hidden;
 }
 .content_container {
   padding-right: 40px;
@@ -263,7 +264,6 @@ body {
   position: absolute;
   right: 0;
   top: 0;
-  border-radius: 10%;
 }
 #nav-menu a {
   display: inline-block;
@@ -579,7 +579,7 @@ body {
   padding-top: 15px;
   text-align: justify;
   text-justify: distribute;
-  word-break: normal;
+  word-break: break-all;
 }
 .post .post-content h2 {
   font-size: 18px;
@@ -606,6 +606,7 @@ body {
   color: #4d4d4c;
   background: #eee;
   font-size: 0.95em;
+  word-break: break-all;
 }
 .post .post-content p a {
   color: #40759b;
@@ -643,6 +644,15 @@ body {
 .post .post-content ol {
   margin: 0;
   padding: 0 0 0 2em;
+  margin: 0 0 1.234em;
+}
+.post .post-content ul li ul,
+.post .post-content ol li ul,
+.post .post-content ul li ol,
+.post .post-content ol li ol,
+.post .post-content ul li p,
+.post .post-content ol li p {
+  margin: 0;
 }
 .post .post-content ul code,
 .post .post-content ol code {
@@ -652,6 +662,7 @@ body {
   color: #4d4d4c;
   background: #eee;
   font-size: 0.95em;
+  word-break: break-all;
 }
 .post .post-content ul a,
 .post .post-content ol a {
@@ -662,6 +673,16 @@ body {
 .post .post-content ul a:hover,
 .post .post-content ol a:hover {
   text-decoration: underline;
+}
+.post .post-copyright blockquote {
+  margin: 3em 0 1rem;
+  padding: 18px 15px;
+  border: 1px solid #40759b;
+  border-left: 12px solid #40759b;
+  border-right: 12px solid #40759b;
+  border-radius: 20px 0 20px;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 .post .tags {
   padding-bottom: 0.5em;
@@ -876,7 +897,7 @@ body {
   text-align: center;
 }
 .page-navigator .space {
-  border-radius: 10%;
+  border: none;
   padding: 5px 5px;
 }
 .page-navigator .current {
@@ -1247,6 +1268,9 @@ table td {
     padding-right: 0;
   }
   .body_container {
+    padding: 0;
+  }
+  #search-form {
     padding: 0 20px;
   }
   .post-archive {
