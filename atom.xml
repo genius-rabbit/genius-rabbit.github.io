@@ -260,7 +260,7 @@
     <link href="https://www.delta1037.cn/2018/11/12/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E4%B8%8Eshell%E6%80%BB%E7%BB%93/"/>
     <id>https://www.delta1037.cn/2018/11/12/自动化测试与shell总结/</id>
     <published>2018-11-12T14:17:09.000Z</published>
-    <updated>2019-10-18T09:01:47.485Z</updated>
+    <updated>2019-11-12T07:18:27.547Z</updated>
     
     <content type="html"><![CDATA[<h1 id="自动化测试-amp-amp-shell总结"><a href="#自动化测试-amp-amp-shell总结" class="headerlink" title="自动化测试&amp;&amp;shell总结"></a>自动化测试&amp;&amp;shell总结</h1><p><em>学习软件工程,小有所成</em></p><h2 id="自动化测试"><a href="#自动化测试" class="headerlink" title="自动化测试"></a>自动化测试</h2><p>自动化测试,使用自动化工具(脚本等&lt;应该可以这么理解?&gt;),自动测试工程</p><h3 id="关于测试"><a href="#关于测试" class="headerlink" title="关于测试"></a>关于测试</h3><p>测试即为测试代码,但是测试代码的方式又有很多,在没有学习软件工程之前,我自己以为的测试就是写一个函数,调用所写的函数,传入参数,然后根据传出的参数来判断函数的功能是否正确;学习软件工程之后,测试是传入测试的指令,预制工程的状态,然后由原工程进行代码的运行之后,最后导出运行之后的状态,与正确的状态对比,判断工程运行是否正确</p><h4 id="1-单元测试"><a href="#1-单元测试" class="headerlink" title="1.单元测试"></a>1.单元测试</h4><p>单元测试就是学习软件工程之前的测试方法,即:写测试函数,调用工程中的某一个功能函数,根据调用该函数之后的返回值,来判断该功能函数实现的是否正确. 这就是单元测试(测试诸多功能中的一个)</p><h4 id="2-集成测试"><a href="#2-集成测试" class="headerlink" title="2.集成测试"></a>2.集成测试</h4><p>集成测试就是学习软件工程之后的测试方法,即:在工程中留有接口,准备接收预置工程状态的命令,和导出工程状态的指令,根据导出的状态,来与正确的状态进行比较,来判断整个工程是否正确. 这就是集成测试(测试整个工程)</p><h3 id="关于自动化测试"><a href="#关于自动化测试" class="headerlink" title="关于自动化测试"></a>关于自动化测试</h3><p>测试实现自动化, 就是将导入工程状态和比较程序状态的过程由工具实现,比如可以写一个脚本,自动导入要预置的工程的状态,然后对比导出的状态与正确的状态是否一致 心得: 1. 将预置的状态的命令写入表格中,便于管理测试用例 2. 将正确的状态写入表格,便于管理 3. 将表格内容生成文件</p><h2 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h2><p>这次软件工程实践,在自动化测试这一块采用的shell脚本来实现测试的自动化</p><ul><li><p>关于文件的对比: 对比肯定是需要两个文件的,但是两个文件又在不同的文件夹中, 若采用for循环遍历文件夹,则只能遍历其中一个文件夹 ,并且shell中没有同时遍历两个文件夹的for循环&lt;解决思路: 先用一个for循环遍历其中一个文件夹,将遍历到的文件路径存于数组中, 然后再去遍历另外一个文件夹,并且依次读取数组中的内容,便实现了同时遍历的效果&gt;</p></li><li><p>关于操作对象的确定性: 本来使用的for循环遍历文件夹是使用的for m in $(ls someFilePath)的形式,然后m就是其中的一个文件,但是使用这种形式操作下,我们并不清楚m是什么,(ls的顺序虽然是按照一定的顺序排列的,但是对于m的未知性,这种操作也有一定的危险性&lt;解决思路,对文件命名采用数字标识,加前缀表明文件类型,例如:dump1,dump2….right1,right2…. for循环的时候就可以循环坐标&gt;</p></li><li><p>脚本风格:在微机原理课上学到,所有的变量及其赋值应该放置在一处以便于管理的思想, 所以所有的可见的字符都应该用变量名字标识,然后在后边的脚本中只对变量名字操作,这样,如果想修改变量的值,只在统一的地方修改就可以,不用修改使用变量的诸多地方(类似于c语言中的宏)</p></li><li><p>精确浮点数计算:”scale=2;算术表达式” | bc</p></li></ul>]]></content>
     
@@ -276,8 +276,6 @@
     
       <category term="测试" scheme="https://www.delta1037.cn/categories/%E6%B5%8B%E8%AF%95/"/>
     
-      <category term="Shell" scheme="https://www.delta1037.cn/categories/%E6%B5%8B%E8%AF%95/Shell/"/>
-    
     
       <category term="Shell" scheme="https://www.delta1037.cn/tags/Shell/"/>
     
@@ -290,7 +288,7 @@
     <link href="https://www.delta1037.cn/2018/10/06/linux%E5%B0%8F%E7%B3%BB%E7%BB%9F-%E5%B0%8F%E7%B3%BB%E7%BB%9F%E5%88%B6%E4%BD%9C/"/>
     <id>https://www.delta1037.cn/2018/10/06/linux小系统-小系统制作/</id>
     <published>2018-10-06T15:05:57.000Z</published>
-    <updated>2019-10-18T08:44:39.457Z</updated>
+    <updated>2019-11-12T07:17:12.906Z</updated>
     
     <content type="html"><![CDATA[<h1 id="制作Linux小系统-外围文件系统定制"><a href="#制作Linux小系统-外围文件系统定制" class="headerlink" title="制作Linux小系统-外围文件系统定制"></a>制作Linux小系统-外围文件系统定制</h1><blockquote><p>环境： - window10 - <a href="https://my.vmware.com/en/web/vmware/info/slug/desktop_end_user_computing/vmware_workstation_pro/14_0" target="_blank" rel="noopener">vmvare pro 14</a> - <a href="http://mirrors.huaweicloud.com/centos/6.10/isos/x86_64/" target="_blank" rel="noopener">centos6.10-mini</a></p></blockquote><hr><hr><h2 id="一、Linux启动过程分析"><a href="#一、Linux启动过程分析" class="headerlink" title="一、Linux启动过程分析"></a>一、Linux启动过程分析</h2><ol><li>BIOS</li><li>MBR/GPT<ul><li>Master Boot Record and Disk partitions</li><li>Globally Unique Identifier Parttion Table Format</li></ul></li><li>OS Loader<ul><li>Window:NTLDR/BootMgr</li><li>Linux:GRUB/GRUB2</li></ul></li><li>OS Kernel<ul><li>DOS:IO.SYS MSDOS.SYS</li><li>Window:ntoskrnl.exe</li><li>Linux:vmlinuz</li></ul></li><li>Application Manager<ul><li>DOS:command.com</li><li>Window:explorer.exe</li><li>Linux:init</li></ul></li><li>Applications…</li></ol><h2 id="二、启动bash"><a href="#二、启动bash" class="headerlink" title="二、启动bash"></a>二、启动bash</h2><h3 id="boot中的init-img文件"><a href="#boot中的init-img文件" class="headerlink" title="/boot中的init*.img文件"></a>/boot中的init*.img文件</h3><ul><li>一个由OS loader载入的镜像文件</li><li><p>临时“根文件系统”</p><h1 id="boot-grub-grub-conf文件"><a href="#boot-grub-grub-conf文件" class="headerlink" title="/boot/grub/grub.conf文件"></a>/boot/grub/grub.conf文件</h1><p>title Linux 2.4</p><pre><code>root (hd0,1)kernel /boot/vmlinuz ramdisk_size=8192 root=LABEL=/initrd /boot/initrd.img</code></pre></li></ul><h3 id="制作根文件系统"><a href="#制作根文件系统" class="headerlink" title="制作根文件系统"></a>制作根文件系统</h3><blockquote><p>使用原来的kernel，initd自己的init*.img</p></blockquote><ul><li><p>如何生成img文件</p><h1 id="表示当前目录"><a href="#表示当前目录" class="headerlink" title=". 表示当前目录"></a>. 表示当前目录</h1><p>$ find . | cpio -H newc -o | gzip &gt; /boot/initrd.img</p></li></ul><ul><li><p>解压生成的img(不小心删掉了自己的系统文件夹，可以用这个方法恢复)</p><p>$ mv initramfs.img  initramfs.img.gz # 添加gz后缀<br>$ gunzip initramfs.img.gz # 解压<br>$ mkdir temp # 创建目录并将解压后的文件丢进去<br>$ cpio -i -F ../initramfs.img # 解压刚刚丢进temp的文件</p></li></ul><h3 id="制作init"><a href="#制作init" class="headerlink" title="制作init"></a>制作init</h3><blockquote><p>Application Manager</p></blockquote><p>init是开机后grub引导进入系统后执行的，所以想要开机进去之后得到一个bash，就得在这个里面定制过程 bash是一个命令，所以只要执行这个命令，就可以得到一个bash，</p><pre><code># 查找命令find，可使用通配符*$ find / -name &quot;bash&quot;</code></pre><h3 id="可执行文件-amp-动态库"><a href="#可执行文件-amp-动态库" class="headerlink" title="可执行文件&amp;动态库"></a>可执行文件&amp;动态库</h3><blockquote><p>随意创建一个目录作为我们小系统的根目录，创建必要的文件夹（拷入小系统的路径与大系统路径一致，例如bash在bin目录中，就要在小系统根目录下创建bin目录然后将bash拷入）</p></blockquote><p>bash执行还需要有其依赖的动态库，我们的小系统启动起来是独立于大系统的，所以我们要将其依赖的动态库也拷进我们的小系统</p><pre><code># 查新指令依赖的动态库$ ldd /可执行文件路径$ ldd /bin/bash</code></pre><ul><li><p>拷贝可执行文件依赖动态库脚本</p><p>#!/bin/bash</p><h1 id="use-script-sh-可执行文件-动态库目录"><a href="#use-script-sh-可执行文件-动态库目录" class="headerlink" title="use : ./script.sh /可执行文件  /动态库目录"></a>use : ./script.sh /可执行文件  /动态库目录</h1><p>dependList=$( ldd $1 | awk ‘{if (match($3,”/“)){ print $3}}’ )<br>echo $dependList<br>cp $dependList $2</p></li></ul><ul><li><p>拷贝目录下的所有可执行文件依赖的动态库脚本</p><p>#!/bin/bash</p><h1 id="use-script-sh-可执行文件目录-动态库目录"><a href="#use-script-sh-可执行文件目录-动态库目录" class="headerlink" title="use : ./script.sh /可执行文件目录  /动态库目录"></a>use : ./script.sh /可执行文件目录  /动态库目录</h1><p>for m in $(ls $1)<br>do</p><pre><code>dependList=$( ldd $1/$m | awk &apos;{if (match($3,&quot;/&quot;)){ print $3}}&apos; )cp $dependList $2</code></pre><p>done</p></li></ul><h2 id="三、管理设备"><a href="#三、管理设备" class="headerlink" title="三、管理设备"></a>三、管理设备</h2><ul><li>udev : 管理、监控主机设备的服务程序<ul><li>依赖与sysfs文件系统（挂载于/sys）</li><li>规则文件/lib/udev</li><li>配置文件/etc/udev</li><li>自动在/dev目录下创建设备节点</li></ul></li><li><p>/proc目录：通过 /proc 文件系统，在运行时访问内核内部数据结构、改变内核设置的机制</p></li><li><p>/sys目录：硬件设备的驱动程序信息</p></li></ul><p>通过执行/sbin/start_udev，就可以检测到所有的设备</p><pre><code># 查看当前机器所有设备$ ls /dev</code></pre><h2 id="四、挂载磁盘"><a href="#四、挂载磁盘" class="headerlink" title="四、挂载磁盘"></a>四、挂载磁盘</h2><blockquote><p>磁盘也是一种设备</p></blockquote><p>在linux上挂载磁盘，磁盘一般是在dev目录里的，但是在上面的管理设备部分，当列出当前机器设备时，并没有看到有关sd*之类的，这是因为<strong>缺少驱动程序</strong> Linux的驱动在/lib/modules目录，可以看到有不同的版本号</p><pre><code>$ lsmod # 列出当前机器所使用的所有驱动$ modinfo # 查看驱动具体介绍，包括驱动依赖关系$ insmod # 加载指定的驱动$ modprobe # 载入制定模块或者载入一组相依的模块，需要有依赖关系moudules.dep</code></pre><ul><li>磁盘所需驱动<ul><li>scsi_transport_spi.ko</li><li>mptbase.ko</li><li>mptscsih.ko</li><li>mptspi.ko</li><li>crc-t10dif.ko</li><li>sd_mod.ko</li></ul></li><li>etx4文件系统驱动<ul><li>mbcache.ko</li><li>jbd2.ko</li><li>ext4.ko</li></ul></li></ul><p>当加载完磁盘和文件系统驱动，就可以挂载和读写原来的文件系统了</p><h2 id="五、登录login"><a href="#五、登录login" class="headerlink" title="五、登录login"></a>五、登录login</h2><ul><li>login认证体系（PAM）<ul><li>/etc/pam.d</li><li>/lib/security</li></ul></li></ul><h2 id="六、使用-sbin-init启动系统"><a href="#六、使用-sbin-init启动系统" class="headerlink" title="六、使用/sbin/init启动系统"></a>六、使用/sbin/init启动系统</h2><p>/sbin/init的工作：</p><ul><li>/etc/rc.sysinit<ul><li>probe devices:udevd</li><li>fsck</li><li>remount</li></ul></li><li>/etc/rc<ul><li>service</li></ul></li><li>/sbin/mingetty<ul><li>login prompt = mingetty+/bin/login</li></ul></li></ul><h2 id="七、联网"><a href="#七、联网" class="headerlink" title="七、联网"></a>七、联网</h2><ul><li>网卡驱动：<ul><li>e1000.ko</li></ul></li><li><p>ping：查看网络是否连通</p></li><li><p>ethtool：查看网卡信息</p></li><li>ifup、ifdown：启动，关闭网卡</li><li>mentohust：连接校园网的工具</li><li>ssh：连接到远程主机，或者被远程主机连接</li><li>scp：基于ssh在两台主机之间拷贝文件</li></ul>]]></content>
     
@@ -304,9 +302,7 @@
     </summary>
     
     
-      <category term="Linux" scheme="https://www.delta1037.cn/categories/Linux/"/>
-    
-      <category term="课设" scheme="https://www.delta1037.cn/categories/Linux/%E8%AF%BE%E8%AE%BE/"/>
+      <category term="课设" scheme="https://www.delta1037.cn/categories/%E8%AF%BE%E8%AE%BE/"/>
     
     
       <category term="Linux小系统" scheme="https://www.delta1037.cn/tags/Linux%E5%B0%8F%E7%B3%BB%E7%BB%9F/"/>
@@ -318,7 +314,7 @@
     <link href="https://www.delta1037.cn/2018/10/04/linux%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91/"/>
     <id>https://www.delta1037.cn/2018/10/04/linux内核编译/</id>
     <published>2018-10-04T11:16:31.000Z</published>
-    <updated>2019-10-18T08:44:05.341Z</updated>
+    <updated>2019-11-12T07:17:40.634Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Linux内核编译"><a href="#Linux内核编译" class="headerlink" title="Linux内核编译"></a>Linux内核编译</h1><h2 id="内核下载与解压"><a href="#内核下载与解压" class="headerlink" title="内核下载与解压"></a>内核下载与解压</h2><h3 id="内核下载"><a href="#内核下载" class="headerlink" title="内核下载"></a>内核下载</h3><p><a href="https://www.kernel.org/" target="_blank" rel="noopener">内核下载地址</a></p><h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><pre><code>$ tar -xvf linux-*.tar.xz</code></pre><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h3 id="安装开发环境"><a href="#安装开发环境" class="headerlink" title="安装开发环境"></a>安装开发环境</h3><pre><code>$ yum groupinstall &apos;Development Tools&apos;$ yum install ncurses-devel$ yum install elfutils-libelf-devel$ yum install bc</code></pre><h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p><a href="http://www.jinbuguo.com/kernel/longterm-linux-kernel-options.html" target="_blank" rel="noopener">Linux-4.4-x86_64 内核配置选项简介-作者：金步国</a> <a href="https://wizardforcel.gitbooks.io/vbird-linux-basic-4e/content/208.html" target="_blank" rel="noopener">Linux 核心编译与管理-鸟哥</a></p><h3 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h3><h4 id="小系统需要实现的功能、"><a href="#小系统需要实现的功能、" class="headerlink" title="小系统需要实现的功能、"></a>小系统需要实现的功能、</h4><ul><li>CPU</li><li>硬盘控制器</li><li>网络控制器</li><li>USB控制器<ul><li>HID、Mass Storage</li></ul></li><li>声卡控制器(可选)</li></ul><h4 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h4><ul><li>网络控制器：联网需要网卡驱动，在设备管理器里可以看到自己网卡是什么型号的，然后在设备驱动-&gt;网络设备支持-&gt;以太网设备支持里将自己网卡那一类勾上，其它可以不要（因为没有这类网卡）</li><li>能编译成模块的尽量编译成模块，这样内核会变小很多</li></ul><h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><pre><code>$ make mrproper # 删除之前的核心功能配置文件,配置文件！！！$ make clean # 清理编译过程中的中间文件，不删除配置文件$ make menuconfig #选择模块$ make clean #清除$ make -j 4   #多线程编译$ make modules_install #安葬模块$ make install #一键安装</code></pre>]]></content>
     
@@ -332,9 +328,7 @@
     </summary>
     
     
-      <category term="Linux" scheme="https://www.delta1037.cn/categories/Linux/"/>
-    
-      <category term="课设" scheme="https://www.delta1037.cn/categories/Linux/%E8%AF%BE%E8%AE%BE/"/>
+      <category term="课设" scheme="https://www.delta1037.cn/categories/%E8%AF%BE%E8%AE%BE/"/>
     
     
       <category term="Linux小系统" scheme="https://www.delta1037.cn/tags/Linux%E5%B0%8F%E7%B3%BB%E7%BB%9F/"/>
@@ -346,7 +340,7 @@
     <link href="https://www.delta1037.cn/2018/10/04/linux%E5%B0%8F%E7%B3%BB%E7%BB%9F-u%E7%9B%98%E5%90%AF%E5%8A%A8/"/>
     <id>https://www.delta1037.cn/2018/10/04/linux小系统-u盘启动/</id>
     <published>2018-10-04T11:05:01.000Z</published>
-    <updated>2019-10-18T08:44:27.877Z</updated>
+    <updated>2019-11-12T07:17:22.954Z</updated>
     
     <content type="html"><![CDATA[<h1 id="U盘启动小系统"><a href="#U盘启动小系统" class="headerlink" title="U盘启动小系统"></a>U盘启动小系统</h1><blockquote><p>环境： Window10 CentOs虚拟机</p></blockquote><h2 id="制作启动盘"><a href="#制作启动盘" class="headerlink" title="制作启动盘"></a>制作启动盘</h2><ol><li>找一个不常用的U盘，分出来一小部分作为启动分区，剩余的作为日常使用（最好在window上分盘。。。）</li><li><p>在虚拟机上挂载U盘，启动分区格式化</p><p>$ mkfs.ext4 /dev/uBootPart</p></li></ol><ol start="3"><li><p>将分出来的启动分区添加上启动标志</p><p>$ fdisk /dev/uBootPart -a </p></li></ol><p>再次fdisk -l 之后看到U盘的启动分区的boot下有个* <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/10/linu_boot1.png" alt> 4.向启动分区中安装grub,/mnt是挂载位置</p><pre><code>$ grub-install --root-directory=/mnt   /dev/uBootPart</code></pre><h2 id="必要文件拷贝"><a href="#必要文件拷贝" class="headerlink" title="必要文件拷贝"></a>必要文件拷贝</h2><ul><li>/boot/grub/grub.conf (内容做适当修改)</li><li>boot/vmlinuz*</li><li>boot/initramfs.img</li></ul>]]></content>
     
@@ -362,9 +356,7 @@
     </summary>
     
     
-      <category term="Linux" scheme="https://www.delta1037.cn/categories/Linux/"/>
-    
-      <category term="课设" scheme="https://www.delta1037.cn/categories/Linux/%E8%AF%BE%E8%AE%BE/"/>
+      <category term="课设" scheme="https://www.delta1037.cn/categories/%E8%AF%BE%E8%AE%BE/"/>
     
     
       <category term="Linux小系统" scheme="https://www.delta1037.cn/tags/Linux%E5%B0%8F%E7%B3%BB%E7%BB%9F/"/>
