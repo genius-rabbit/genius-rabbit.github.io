@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.delta1037.cn/"/>
-  <updated>2019-11-23T07:01:36.000Z</updated>
+  <updated>2020-02-28T11:58:47.324Z</updated>
   <id>https://www.delta1037.cn/</id>
   
   <author>
@@ -21,16 +21,15 @@
     <link href="https://www.delta1037.cn/2019/11/23/deltaNoteSite/"/>
     <id>https://www.delta1037.cn/2019/11/23/deltaNoteSite/</id>
     <published>2019-11-23T07:00:59.000Z</published>
-    <updated>2019-11-23T07:01:36.000Z</updated>
+    <updated>2020-02-28T11:58:47.324Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="deltaNote"><a href="#deltaNote" class="headerlink" title="deltaNote"></a>deltaNote</h1><p>占个坑</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="deltaNote"><a href="#deltaNote" class="headerlink" title="deltaNote"></a>deltaNote</h1><p><a href="https://github.com/delta1037/deltaNote" target="_blank" rel="noopener">项目github地址</a><br><a href="https://github.com/delta1037/deltaNote/releases" target="_blank" rel="noopener">发行版下载地址</a></p><h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><h3 id="window客户端"><a href="#window客户端" class="headerlink" title="window客户端"></a>window客户端</h3><p>安装完成之后，主界面如下图所示</p><p><img src="http://39.96.162.190:233/main_win.png" alt="主窗口"></p><p>主界面简介：主界面上部有三个按钮，分别是设置，刷新，和界面锁，下部有四个按钮，分别是添加TODO，删除TODO，插入TODO和删除所有的TODO(不删除服务端)</p><p>位置和大小：当界面锁是开启状态时，可以对窗体进行调整，其中<code>1</code>位置可以拖动窗口；<code>3</code>位置可以调整窗体的高度。</p><p>选择TODO：鼠标可以放在每一个TODO的<code>2</code>位置，左键可以进行选择，然后可以对该TODO进行删除操作</p><p>右键菜单：鼠标放在窗体中，点击鼠标右键可以调出右键菜单，与下部按钮一样的功能。</p><p>点击主界面中的设置按钮，可以看到设置界面，如下所示</p><p><img src="http://39.96.162.190:233/setting.png" alt="设置"></p><p>主界面简介：</p><ul><li><code>1</code>:服务端地址和端口(目前仅支持IP地址)</li><li><code>2</code>:用户名和密码</li><li><code>3</code>:取消以关闭窗体，创建新用户和登录按钮</li><li><code>4</code>:调整窗体的透明度</li><li><code>5</code>:调整字体颜色</li><li><code>6</code>:调整图标颜色</li><li><code>7</code>:清除服务端所有的数据</li><li><code>8</code>:设置开机启动</li></ul><p>点击<code>3</code>中的创建用户按钮，如下图所示</p><p><img src="http://39.96.162.190:233/create_new.png" alt="创建新用户"></p><p>填入用户名和密码即可创建新用户</p><p><a href="https://github.com/delta1037/deltaNote/issues" target="_blank" rel="noopener">问题反馈</a></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;deltaNote&quot;&gt;&lt;a href=&quot;#deltaNote&quot; class=&quot;headerlink&quot; title=&quot;deltaNote&quot;&gt;&lt;/a&gt;deltaNote&lt;/h1&gt;&lt;p&gt;占个坑&lt;/p&gt;
-
+        &lt;h1 id=&quot;deltaNote&quot;&gt;&lt;a href=&quot;#deltaNote&quot; class=&quot;headerlink&quot; title=&quot;deltaNote&quot;&gt;&lt;/a&gt;deltaNote&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/delta1037/delt
       
     
     </summary>
