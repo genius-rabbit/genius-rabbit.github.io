@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.delta1037.cn/"/>
-  <updated>2020-02-28T12:23:03.734Z</updated>
+  <updated>2020-04-25T03:19:45.944Z</updated>
   <id>https://www.delta1037.cn/</id>
   
   <author>
@@ -17,13 +17,28 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>C++ 类型转换</title>
+    <link href="https://www.delta1037.cn/2020/04/25/C-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+    <id>https://www.delta1037.cn/2020/04/25/C-类型转换/</id>
+    <published>2020-04-25T03:19:45.000Z</published>
+    <updated>2020-04-25T03:19:45.944Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>deltaNoteSite</title>
     <link href="https://www.delta1037.cn/2019/11/23/deltaNoteSite/"/>
     <id>https://www.delta1037.cn/2019/11/23/deltaNoteSite/</id>
     <published>2019-11-23T07:00:59.000Z</published>
-    <updated>2020-02-28T12:23:03.734Z</updated>
+    <updated>2020-06-23T12:06:27.685Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="deltaNote"><a href="#deltaNote" class="headerlink" title="deltaNote"></a>deltaNote</h1><h2 id="一、资源地址"><a href="#一、资源地址" class="headerlink" title="一、资源地址"></a>一、资源地址</h2><p><a href="https://github.com/delta1037/deltaNote" target="_blank" rel="noopener">项目github地址</a><br><a href="https://github.com/delta1037/deltaNote/releases" target="_blank" rel="noopener">发行版下载地址</a></p><h2 id="二、使用说明"><a href="#二、使用说明" class="headerlink" title="二、使用说明"></a>二、使用说明</h2><h3 id="2-1-服务端"><a href="#2-1-服务端" class="headerlink" title="2.1 服务端"></a>2.1 服务端</h3><ul><li>运行：从发行版下载地址中下载最新的服务端解压，使用<code>./deltaNote</code>命令运行，可以使用<code>netstat -anpt | grep 8888</code>看到服务端已在运行</li><li>修改端口：可以使用<code>vim deltaNote</code>修改端口参数</li></ul><h3 id="2-2-Linux客户端"><a href="#2-2-Linux客户端" class="headerlink" title="2.2 Linux客户端"></a>2.2 Linux客户端</h3><h3 id="2-3-window客户端"><a href="#2-3-window客户端" class="headerlink" title="2.3 window客户端"></a>2.3 window客户端</h3><p>安装完成之后，主界面如下图所示<br><img src="http://39.96.162.190:233/main_win.png" alt="主窗口"></p><ul><li>主界面简介：主界面上部有三个按钮，分别是设置，刷新，和界面锁，下部有四个按钮，分别是添加TODO，删除TODO，插入TODO和删除所有的TODO(不删除服务端)</li><li>位置和大小：当界面锁是开启状态时，可以对窗体进行调整，其中<code>1</code>位置可以拖动窗口；<code>3</code>位置可以调整窗体的高度。</li><li>选择TODO：鼠标可以放在每一个TODO的<code>2</code>位置，左键可以进行选择，然后可以对该TODO进行删除操作</li><li>右键菜单：鼠标放在窗体中，点击鼠标右键可以调出右键菜单，与下部按钮一样的功能。</li></ul><p>点击主界面中的设置按钮，可以看到设置界面，如下所示<br><img src="http://39.96.162.190:233/setting.png" alt="设置"></p><p>设置界面简介：</p><ul><li><code>1</code>:服务端地址和端口(目前仅支持IP地址)</li><li><code>2</code>:用户名和密码</li><li><code>3</code>:取消以关闭窗体，创建新用户和登录按钮</li><li><code>4</code>:调整窗体的透明度</li><li><code>5</code>:调整字体颜色</li><li><code>6</code>:调整图标颜色</li><li><code>7</code>:清除服务端所有的数据</li><li><code>8</code>:设置开机启动</li></ul><p>点击<code>3</code>中的创建用户按钮，如下图所示<br><img src="http://39.96.162.190:233/create_new.png" alt="创建新用户"></p><p>填入用户名和密码即可创建新用户</p><h2 id="三、问题反馈"><a href="#三、问题反馈" class="headerlink" title="三、问题反馈"></a>三、问题反馈</h2><p><a href="https://github.com/delta1037/deltaNote/issues" target="_blank" rel="noopener">问题反馈</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="deltaNote"><a href="#deltaNote" class="headerlink" title="deltaNote"></a>deltaNote</h1><h2 id="一、资源地址"><a href="#一、资源地址" class="headerlink" title="一、资源地址"></a>一、资源地址</h2><p><a href="https://github.com/delta1037/deltaNote" target="_blank" rel="noopener">项目github地址</a><br><a href="https://github.com/delta1037/deltaNote/releases" target="_blank" rel="noopener">发行版下载地址</a></p><h2 id="二、使用说明"><a href="#二、使用说明" class="headerlink" title="二、使用说明"></a>二、使用说明</h2><h3 id="2-1-Linux服务端安装"><a href="#2-1-Linux服务端安装" class="headerlink" title="2.1 Linux服务端安装"></a>2.1 Linux服务端安装</h3><p>1、从<a href="https://github.com/delta1037/deltaNote/releases" target="_blank" rel="noopener">发行版下载地址</a>下载服务端，解压<br>2、进入解压后的目录，使用<code>./deltaNote</code>命令运行，可以使用<code>netstat -anpt | grep 8888</code>看到服务端已在运行<br>3、可以使用<code>vim deltaNote</code>修改端口等参数</p><ul><li>目前测试服务端：<code>39.96.162.190:8888</code></li></ul><h3 id="2-2-Linux客户端安装"><a href="#2-2-Linux客户端安装" class="headerlink" title="2.2 Linux客户端安装"></a>2.2 Linux客户端安装</h3><p>1、下载压缩包之后，解压<br>2、执行<code>sudo ./install.sh</code>即可安装到<code>/usr/local/deltaNote</code><br>3、执行<code>sudo ./uninstall.sh</code>即可卸载</p><h3 id="2-3-window客户端安装"><a href="#2-3-window客户端安装" class="headerlink" title="2.3 window客户端安装"></a>2.3 window客户端安装</h3><p>1、下载压缩包，解压<br>2、双击<code>*.exe</code>运行安装程序（目前不支持安装在C盘）</p><h3 id="2-4-deltaNote简介"><a href="#2-4-deltaNote简介" class="headerlink" title="2.4 deltaNote简介"></a>2.4 deltaNote简介</h3><h4 id="2-4-1-主界面"><a href="#2-4-1-主界面" class="headerlink" title="2.4.1 主界面"></a>2.4.1 主界面</h4><p>主界面如下图所示<br><img src="https://upload-images.jianshu.io/upload_images/8198886-5017b5ce6746a5e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主界面"></p><ul><li>主界面简介：主界面上部有四个按钮，分别是设置，刷新，界面锁和历史记录<ul><li>设置按钮：打开设置面板</li><li>刷新按钮：与服务端进行同步</li><li>界面锁按钮：界面锁打开时，可以对主界面位置进行调整</li><li>历史记录按钮：点击打开查看已做的内容，打开历史记录使用右键可以选择清理历史记录</li></ul></li><li>位置和大小：当界面锁是开启状态时，可以对窗体进行调整，其中<code>1</code>位置可以拖动窗口；<code>2</code>位置可以调整窗体的高度。</li><li>勾选已做：点击每条TODO的前边的小方框，可以将TODO标记为已做，可以在历史记录中查看</li></ul><h4 id="2-4-2-设置"><a href="#2-4-2-设置" class="headerlink" title="2.4.2 设置"></a>2.4.2 设置</h4><p>点击主界面中的设置按钮，可以看到设置界面，如下所示<br><img src="https://upload-images.jianshu.io/upload_images/8198886-a9a3639a45a87722.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置"></p><ul><li>设置界面简介：<ul><li>服务端地址和端口(目前仅支持IP地址)</li><li>用户名和密码</li><li>调整窗体的透明度</li><li>调整字体大小</li><li>调整主界面宽度</li><li>调整字体和图标颜色</li><li>设置开机启动</li></ul></li></ul><h4 id="2-4-3-创建用户"><a href="#2-4-3-创建用户" class="headerlink" title="2.4.3 创建用户"></a>2.4.3 创建用户</h4><p>点击设置中的创建用户按钮，如下图所示<br><img src="https://upload-images.jianshu.io/upload_images/8198886-1eb902016532a6bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建用户"></p><p>填入用户名和密码即可创建新用户</p><h2 id="三、问题反馈"><a href="#三、问题反馈" class="headerlink" title="三、问题反馈"></a>三、问题反馈</h2><p><a href="https://github.com/delta1037/deltaNote/issues" target="_blank" rel="noopener">问题反馈</a></p><h2 id="四、问题"><a href="#四、问题" class="headerlink" title="四、问题"></a>四、问题</h2><ul><li>window客户端不要安装在C盘，因为安装和运行时没有获取管理员权限</li><li>window客户端开机启动选项打开之后，需要在任务管理器的启动页面禁用再启用</li></ul>]]></content>
     
     <summary type="html">
     
@@ -514,32 +529,6 @@
     
     
       <category term="神经网络" scheme="https://www.delta1037.cn/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>owncloud 搭建</title>
-    <link href="https://www.delta1037.cn/2018/07/10/owncloud-%E6%90%AD%E5%BB%BA/"/>
-    <id>https://www.delta1037.cn/2018/07/10/owncloud-搭建/</id>
-    <published>2018-07-10T02:03:27.000Z</published>
-    <updated>2019-10-18T08:47:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="搭建-ownCloud"><a href="#搭建-ownCloud" class="headerlink" title="搭建 ownCloud"></a>搭建 ownCloud</h1><h2 id="LAMP环境"><a href="#LAMP环境" class="headerlink" title="LAMP环境"></a>LAMP环境</h2><p><a href="https://www.geniusrabbit.top/?p=1350" target="_blank" rel="noopener">参见wordpress搭建</a></p><h2 id="安装ownCloud"><a href="#安装ownCloud" class="headerlink" title="安装ownCloud"></a>安装ownCloud</h2><p><a href="https://download.owncloud.org/download/repositories/stable/owncloud/" target="_blank" rel="noopener">官网参考</a></p><h3 id="add-key"><a href="#add-key" class="headerlink" title="add key"></a>add key</h3><pre><code>wget -nv https://download.owncloud.org/download/repositories/production/Ubuntu_16.04/Release.key -O Release.keyapt-key add - &lt; Release.key</code></pre><h3 id="install"><a href="#install" class="headerlink" title="install"></a>install</h3><pre><code>echo &apos;deb http://download.owncloud.org/download/repositories/production/Ubuntu_16.04/ /&apos; &gt; /etc/apt/sources.list.d/owncloud.listapt-get updateapt-get install owncloud-files</code></pre><p>安装完成之后即可在<a href="http://yourip/owncloud" target="_blank" rel="noopener">http://yourip/owncloud</a> 打开页面</p><h3 id="note"><a href="#note" class="headerlink" title="note"></a>note</h3><p>若打不开出现乱码,</p><pre><code>cd /var/wwwmv owncloud html/</code></pre><h2 id="配置数据库"><a href="#配置数据库" class="headerlink" title="配置数据库"></a>配置数据库</h2><h3 id="创建数据库和用户"><a href="#创建数据库和用户" class="headerlink" title="创建数据库和用户"></a>创建数据库和用户</h3><pre><code>mysql -uroot -p //登录&gt; create database owncloud; //创建数据库owncloud&gt; GRANT ALL ON owncloud.* TO user@localhost IDENTIFIED BY &apos;password&apos;; //**用户名为user**可自己更改&gt; flush privileges;&gt; exit</code></pre><h3 id="note-1"><a href="#note-1" class="headerlink" title="note"></a>note</h3><p>登录时localhost后加上数据库访问端口3306(mysql)</p><p>若出现Can’t create or write into the data directory,需要修改owncloud文件夹的权限</p><pre><code>$ chown -hR www-data owncloud</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;搭建-ownCloud&quot;&gt;&lt;a href=&quot;#搭建-ownCloud&quot; class=&quot;headerlink&quot; title=&quot;搭建 ownCloud&quot;&gt;&lt;/a&gt;搭建 ownCloud&lt;/h1&gt;&lt;h2 id=&quot;LAMP环境&quot;&gt;&lt;a href=&quot;#LAMP环境&quot; cla
-      
-    
-    </summary>
-    
-    
-      <category term="服务器" scheme="https://www.delta1037.cn/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    
-    
-      <category term="ownCloud" scheme="https://www.delta1037.cn/tags/ownCloud/"/>
     
   </entry>
   
