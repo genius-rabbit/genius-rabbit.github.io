@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.delta1037.cn/BugsFix/index.html</loc>
+    
+    <lastmod>2020-11-14T15:39:29.761Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/Program/index.html</loc>
+    
+    <lastmod>2020-11-14T15:39:17.613Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.delta1037.cn/2019/11/23/deltaNoteSite/</loc>
     
     <lastmod>2020-06-23T12:06:27.685Z</lastmod>
@@ -72,7 +86,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2018/01/31/mysql-error2002/</loc>
+    <loc>https://www.delta1037.cn/BugsFix/mysql-error2002.html</loc>
     
     <lastmod>2019-10-18T10:53:38.000Z</lastmod>
     
