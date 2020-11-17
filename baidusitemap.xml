@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.delta1037.cn/2017/C_C++/makefile/</loc>
+    <lastmod>2020-11-17</lastmod>
+  </url>  <url>
+    <loc>https://www.delta1037.cn/2017/C_C++/cmake/</loc>
+    <lastmod>2020-11-17</lastmod>
+  </url>  <url>
+    <loc>https://www.delta1037.cn/2019/C_C++/compile/</loc>
+    <lastmod>2020-11-17</lastmod>
+  </url>  <url>
     <loc>https://www.delta1037.cn/2019/School/%E5%9F%BA%E4%BA%8Ens3%E7%9A%84%E6%97%A0%E7%BA%BF%E9%93%BE%E8%B7%AF%E7%89%A9%E7%90%86%E5%B1%82%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>  <url>
@@ -115,9 +124,6 @@
     <loc>https://www.delta1037.cn/2018/Deploy/docker/</loc>
     <lastmod>2019-10-18</lastmod>
   </url>  <url>
-    <loc>https://www.delta1037.cn/2017/Linux/makefile/</loc>
-    <lastmod>2019-10-18</lastmod>
-  </url>  <url>
     <loc>https://www.delta1037.cn/2019/Deploy/Install-Oracle-Database-9i-on-CentOS-5-i386/</loc>
     <lastmod>2019-10-18</lastmod>
   </url>  <url>
@@ -133,13 +139,7 @@
     <loc>https://www.delta1037.cn/2018/C_C++/c%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/</loc>
     <lastmod>2019-10-18</lastmod>
   </url>  <url>
-    <loc>https://www.delta1037.cn/2019/C_C++/compile/</loc>
-    <lastmod>2019-10-18</lastmod>
-  </url>  <url>
     <loc>https://www.delta1037.cn/2018/C_C++/codestyle/</loc>
-    <lastmod>2019-10-18</lastmod>
-  </url>  <url>
-    <loc>https://www.delta1037.cn/2017/C_C++/cmake/</loc>
     <lastmod>2019-10-18</lastmod>
   </url>  <url>
     <loc>https://www.delta1037.cn/2018/Deploy/apache%E9%85%8D%E7%BD%AEssl/</loc>
