@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.delta1037.cn/2017/Others/mpi%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2020-11-17</lastmod>
+  </url>  <url>
+    <loc>https://www.delta1037.cn/2017/Others/openmp/</loc>
+    <lastmod>2020-11-17</lastmod>
+  </url>  <url>
     <loc>https://www.delta1037.cn/2018/Times/To_2018/</loc>
     <lastmod>2020-11-17</lastmod>
   </url>  <url>
@@ -20,12 +26,6 @@
     <lastmod>2020-11-17</lastmod>
   </url>  <url>
     <loc>https://www.delta1037.cn/2018/School/%E7%9F%AD%E4%BF%A1%E6%94%B6%E5%8F%91%E5%8A%9F%E8%83%BD%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2020-11-17</lastmod>
-  </url>  <url>
-    <loc>https://www.delta1037.cn/2017/Others/openmp/</loc>
-    <lastmod>2020-11-17</lastmod>
-  </url>  <url>
-    <loc>https://www.delta1037.cn/2017/Others/mpi%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-11-17</lastmod>
   </url>  <url>
     <loc>https://www.delta1037.cn/2018/Others/kubernetes/</loc>
@@ -139,7 +139,7 @@
     <loc>https://www.delta1037.cn/2017/Algorithm/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</loc>
     <lastmod>2019-10-18</lastmod>
   </url>  <url>
-    <loc>https://www.delta1037.cn/2017/Linux/posix%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://www.delta1037.cn/2017/Others/posix%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2019-10-18</lastmod>
   </url>  <url>
     <loc>https://www.delta1037.cn/2018/C_C++/c%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/</loc>
