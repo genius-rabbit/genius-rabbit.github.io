@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.delta1037.cn/2019/Deploy/Install-Oracle-Database-9i-on-CentOS-5-i386/</loc>
+    
+    <lastmod>2020-11-25T11:54:28.425Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.delta1037.cn/2020/Linux/Linux%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4/</loc>
     
     <lastmod>2020-11-24T15:44:32.988Z</lastmod>
@@ -194,13 +201,6 @@
     <loc>https://www.delta1037.cn/2017/Deploy/hexogithub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
     
     <lastmod>2020-11-17T13:53:52.038Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/2019/Deploy/Install-Oracle-Database-9i-on-CentOS-5-i386/</loc>
-    
-    <lastmod>2020-11-17T13:53:49.101Z</lastmod>
     
   </url>
   
