@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.delta1037.cn/2020/Linux/Linux_fcntl/</loc>
+    <lastmod>2020-12-04</lastmod>
+  </url>  <url>
+    <loc>https://www.delta1037.cn/2020/Linux/Linux_ioctl/</loc>
+    <lastmod>2020-12-04</lastmod>
+  </url>  <url>
     <loc>https://www.delta1037.cn/2020/C_C++/C++%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</loc>
     <lastmod>2020-12-03</lastmod>
   </url>  <url>
