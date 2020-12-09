@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.delta1037.cn/"/>
-  <updated>2020-12-04T15:22:48.754Z</updated>
+  <updated>2020-12-09T15:20:19.832Z</updated>
   <id>https://www.delta1037.cn/</id>
   
   <author>
@@ -17,28 +17,28 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>ioctl</title>
-    <link href="https://www.delta1037.cn/2020/Linux/Linux_ioctl/"/>
-    <id>https://www.delta1037.cn/2020/Linux/Linux_ioctl/</id>
-    <published>2020-12-04T14:08:31.000Z</published>
-    <updated>2020-12-04T15:22:48.754Z</updated>
+    <title>经济学十大原理</title>
+    <link href="https://www.delta1037.cn/2020/Economics/%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8D%81%E5%A4%A7%E5%8E%9F%E7%90%86/"/>
+    <id>https://www.delta1037.cn/2020/Economics/经济学十大原理/</id>
+    <published>2020-12-09T14:32:31.000Z</published>
+    <updated>2020-12-09T15:20:19.832Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="ioctl"><a href="#ioctl" class="headerlink" title="ioctl"></a>ioctl</h1><p>ioctl()系统调用为<strong>执行文件</strong>和<strong>设备操作</strong>提供了一种多用途机制</p><h2 id="一、接口定义"><a href="#一、接口定义" class="headerlink" title="一、接口定义"></a>一、接口定义</h2><p>ioctl接口定义：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ioctl</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> request, ... <span class="comment">/* argp */</span>)</span></span></span><br></pre></td></tr></table></figure><p>接口参数说明：</p><ul><li>fd：某个设备或者文件已经打开的文件描述符</li><li><p>request：将在fd上执行的控制操作（<strong>具体设备的头文件</strong>定义了可以传递给request参数的常量）</p></li><li><p>argp：argp的值的类型是由request的参数值确定的，类型如下：</p><ul><li>不需要该参数（哈哈哈没想到吧）</li><li>指向整数或者结构的指针</li></ul></li></ul><h2 id="二、应用场景"><a href="#二、应用场景" class="headerlink" title="二、应用场景"></a>二、应用场景</h2><h2 id="三、参考文献"><a href="#三、参考文献" class="headerlink" title="三、参考文献"></a>三、参考文献</h2><p>【0】Linux/UNIX系统编程手册</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="经济学十大原理"><a href="#经济学十大原理" class="headerlink" title="经济学十大原理"></a>经济学十大原理</h1><h2 id="一、十大原理分类"><a href="#一、十大原理分类" class="headerlink" title="一、十大原理分类"></a>一、十大原理分类</h2><h3 id="1-1-人们如何做出决策"><a href="#1-1-人们如何做出决策" class="headerlink" title="1.1 人们如何做出决策"></a>1.1 人们如何做出决策</h3><h4 id="原理一：人们面临权衡取舍"><a href="#原理一：人们面临权衡取舍" class="headerlink" title="原理一：人们面临权衡取舍"></a>原理一：人们面临权衡取舍</h4><p>为了得到一件喜爱的东西，我们通常不得不放弃另一件喜爱的东西。做出决策就是要求我们在一个目标与另一个目标之间进行权衡取舍。</p><p>人们只有了解面临的选择，才有可能做出良好的决策。</p><h4 id="原理二：某种东西的成本是为了得到它所放弃的东西"><a href="#原理二：某种东西的成本是为了得到它所放弃的东西" class="headerlink" title="原理二：某种东西的成本是为了得到它所放弃的东西"></a>原理二：某种东西的成本是为了得到它所放弃的东西</h4><p>一种东西的<strong>机会成本</strong>是为了得到这种东西所放弃的东西</p><h4 id="原理三：理性人考虑边际量"><a href="#原理三：理性人考虑边际量" class="headerlink" title="原理三：理性人考虑边际量"></a>原理三：理性人考虑边际量</h4><p>理性人通常比较边际收益与边际成本来做决策。当且仅当一种行为的边际收益大于边际成本时，一个理性的决策者才会采取这种行为。</p><h4 id="原理四：人们会对激励做出反应"><a href="#原理四：人们会对激励做出反应" class="headerlink" title="原理四：人们会对激励做出反应"></a>原理四：人们会对激励做出反应</h4><p><strong>激励</strong>是引起一个人做出某种行为的东西（例如惩罚或奖励的预期）。由于理性人会通过比较成本与收益做出决策，所以他们会对激励做出反应</p><h3 id="1-2-人们如何互相影响"><a href="#1-2-人们如何互相影响" class="headerlink" title="1.2 人们如何互相影响"></a>1.2 人们如何互相影响</h3><h4 id="原理五：贸易可以使每个人的情况都变得更好"><a href="#原理五：贸易可以使每个人的情况都变得更好" class="headerlink" title="原理五：贸易可以使每个人的情况都变得更好"></a>原理五：贸易可以使每个人的情况都变得更好</h4><p>贸易可以使得每个人做自己擅长的活动。通过与其他人贸易，人们可以以较低的成本获得各种各样的物品与服务。</p><h4 id="原理六：市场通常是组织经济活动的一种-好方法"><a href="#原理六：市场通常是组织经济活动的一种-好方法" class="headerlink" title="原理六：市场通常是组织经济活动的一种 好方法"></a>原理六：市场通常是组织经济活动的一种 好方法</h4><p><strong>市场经济</strong>：许多家庭和企业在物品与服务市场上互相交易时，通过他们的分散决策配置资源的经济。</p><p>家庭和企业在市场上互相交易，他们仿佛被一只“看不见的手”所指引，并导致了合意的市场结果。</p><h4 id="原理七：政府优势可以改善市场的结果"><a href="#原理七：政府优势可以改善市场的结果" class="headerlink" title="原理七：政府优势可以改善市场的结果"></a>原理七：政府优势可以改善市场的结果</h4><p>看不见的手是强有力的，但并不是无所不能的。政府干预经济并改变人们自己选择的资源配置的原因有两类：促进效率或促进平等。也就是说，大多数政策目标是要么把经济蛋糕做大，要么改变这个蛋糕的分割方式。</p><h3 id="1-3-整体经济如何运行"><a href="#1-3-整体经济如何运行" class="headerlink" title="1.3 整体经济如何运行"></a>1.3 整体经济如何运行</h3><h4 id="原理八：一国的生活水平取决于它生产物品与服务能力"><a href="#原理八：一国的生活水平取决于它生产物品与服务能力" class="headerlink" title="原理八：一国的生活水平取决于它生产物品与服务能力"></a>原理八：一国的生活水平取决于它生产物品与服务能力</h4><p>生活水平的差别可以归结于<strong>生产率</strong>的差别，即每一单位劳动投入所生产的物品与服务数量的差别。</p><h4 id="原理九：当政府发行了过多的货币时，物价上升"><a href="#原理九：当政府发行了过多的货币时，物价上升" class="headerlink" title="原理九：当政府发行了过多的货币时，物价上升"></a>原理九：当政府发行了过多的货币时，物价上升</h4><p>通货膨胀是物价总水平的上升。大多数严重或者持续的通货膨胀情况下，罪魁祸首是货币的增长。</p><h4 id="原理十：社会面临通货膨胀与失业之间的短期权衡取舍"><a href="#原理十：社会面临通货膨胀与失业之间的短期权衡取舍" class="headerlink" title="原理十：社会面临通货膨胀与失业之间的短期权衡取舍"></a>原理十：社会面临通货膨胀与失业之间的短期权衡取舍</h4><p>长期中，物价水平的上升主要是货币量增加的结果</p><p>货币注入的短期效应：</p><ul><li>经济中货币的增加刺激了社会的整体支出水平，从而增加了对物品和服务的需求</li><li>需求的增加随着时间的推移，会引起企业提高物价，但同时，它也鼓励企业雇佣更多的工人，并生产更多的物品与服务</li><li>雇佣更多的工人意味着更少的失业</li></ul><h2 id="二、参考文献"><a href="#二、参考文献" class="headerlink" title="二、参考文献"></a>二、参考文献</h2><p>【0】经济学原理 微观经济学分册</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;ioctl&quot;&gt;&lt;a href=&quot;#ioctl&quot; class=&quot;headerlink&quot; title=&quot;ioctl&quot;&gt;&lt;/a&gt;ioctl&lt;/h1&gt;&lt;p&gt;ioctl()系统调用为&lt;strong&gt;执行文件&lt;/strong&gt;和&lt;strong&gt;设备操作&lt;/strong&gt;提供了
+        &lt;h1 id=&quot;经济学十大原理&quot;&gt;&lt;a href=&quot;#经济学十大原理&quot; class=&quot;headerlink&quot; title=&quot;经济学十大原理&quot;&gt;&lt;/a&gt;经济学十大原理&lt;/h1&gt;&lt;h2 id=&quot;一、十大原理分类&quot;&gt;&lt;a href=&quot;#一、十大原理分类&quot; class=&quot;headerli
       
     
     </summary>
     
     
-      <category term="Linux" scheme="https://www.delta1037.cn/categories/Linux/"/>
+      <category term="经济学" scheme="https://www.delta1037.cn/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
     
-      <category term="Linux" scheme="https://www.delta1037.cn/tags/Linux/"/>
+      <category term="经济学" scheme="https://www.delta1037.cn/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
   </entry>
   
@@ -57,6 +57,32 @@
       
         &lt;h1 id=&quot;fcntl&quot;&gt;&lt;a href=&quot;#fcntl&quot; class=&quot;headerlink&quot; title=&quot;fcntl&quot;&gt;&lt;/a&gt;fcntl&lt;/h1&gt;&lt;p&gt;fcntl针对描述符提供控制，可以用来改变已打开文件的性质&lt;/p&gt;
 &lt;h2 id=&quot;一、函数定义&quot;&gt;&lt;a href=
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://www.delta1037.cn/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://www.delta1037.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ioctl</title>
+    <link href="https://www.delta1037.cn/2020/Linux/Linux_ioctl/"/>
+    <id>https://www.delta1037.cn/2020/Linux/Linux_ioctl/</id>
+    <published>2020-12-04T14:08:31.000Z</published>
+    <updated>2020-12-04T15:22:48.754Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="ioctl"><a href="#ioctl" class="headerlink" title="ioctl"></a>ioctl</h1><p>ioctl()系统调用为<strong>执行文件</strong>和<strong>设备操作</strong>提供了一种多用途机制</p><h2 id="一、接口定义"><a href="#一、接口定义" class="headerlink" title="一、接口定义"></a>一、接口定义</h2><p>ioctl接口定义：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ioctl</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> request, ... <span class="comment">/* argp */</span>)</span></span></span><br></pre></td></tr></table></figure><p>接口参数说明：</p><ul><li>fd：某个设备或者文件已经打开的文件描述符</li><li><p>request：将在fd上执行的控制操作（<strong>具体设备的头文件</strong>定义了可以传递给request参数的常量）</p></li><li><p>argp：argp的值的类型是由request的参数值确定的，类型如下：</p><ul><li>不需要该参数（哈哈哈没想到吧）</li><li>指向整数或者结构的指针</li></ul></li></ul><h2 id="二、应用场景"><a href="#二、应用场景" class="headerlink" title="二、应用场景"></a>二、应用场景</h2><h2 id="三、参考文献"><a href="#三、参考文献" class="headerlink" title="三、参考文献"></a>三、参考文献</h2><p>【0】Linux/UNIX系统编程手册</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;ioctl&quot;&gt;&lt;a href=&quot;#ioctl&quot; class=&quot;headerlink&quot; title=&quot;ioctl&quot;&gt;&lt;/a&gt;ioctl&lt;/h1&gt;&lt;p&gt;ioctl()系统调用为&lt;strong&gt;执行文件&lt;/strong&gt;和&lt;strong&gt;设备操作&lt;/strong&gt;提供了
       
     
     </summary>
@@ -96,32 +122,6 @@
   </entry>
   
   <entry>
-    <title>Linux终端动态刷新</title>
-    <link href="https://www.delta1037.cn/2020/Linux/Linux%E7%BB%88%E7%AB%AF%E5%8A%A8%E6%80%81%E5%88%B7%E6%96%B0/"/>
-    <id>https://www.delta1037.cn/2020/Linux/Linux终端动态刷新/</id>
-    <published>2020-12-03T11:16:31.000Z</published>
-    <updated>2020-12-03T14:36:33.834Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Linux终端动态刷新"><a href="#Linux终端动态刷新" class="headerlink" title="Linux终端动态刷新"></a>Linux终端动态刷新</h1><h2 id="一、代码片段"><a href="#一、代码片段" class="headerlink" title="一、代码片段"></a>一、代码片段</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> CStat::runtimePrintBuf(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; &amp;buf)&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> last_print_lines = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; last_print_lines; ++i)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\033[1A"</span>); <span class="comment">//先回到上一行</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\033[K"</span>);  <span class="comment">//清除该行</span></span><br><span class="line">    &#125;</span><br><span class="line">    last_print_lines = buf.size();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;it : buf)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, it.c_str());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="二、相关知识"><a href="#二、相关知识" class="headerlink" title="二、相关知识"></a>二、相关知识</h2><h3 id="2-1-终端控制字符"><a href="#2-1-终端控制字符" class="headerlink" title="2.1 终端控制字符"></a>2.1 终端控制字符</h3>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Linux终端动态刷新&quot;&gt;&lt;a href=&quot;#Linux终端动态刷新&quot; class=&quot;headerlink&quot; title=&quot;Linux终端动态刷新&quot;&gt;&lt;/a&gt;Linux终端动态刷新&lt;/h1&gt;&lt;h2 id=&quot;一、代码片段&quot;&gt;&lt;a href=&quot;#一、代码片段&quot; cla
-      
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="https://www.delta1037.cn/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="https://www.delta1037.cn/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Linux C语言实现按键即时识别</title>
     <link href="https://www.delta1037.cn/2020/Linux/Linux%E8%AF%86%E5%88%AB%E6%8C%89%E9%94%AE/"/>
     <id>https://www.delta1037.cn/2020/Linux/Linux识别按键/</id>
@@ -135,6 +135,32 @@
       
       
         &lt;h1 id=&quot;Linux-C语言实现按键即时识别&quot;&gt;&lt;a href=&quot;#Linux-C语言实现按键即时识别&quot; class=&quot;headerlink&quot; title=&quot;Linux C语言实现按键即时识别&quot;&gt;&lt;/a&gt;Linux C语言实现按键即时识别&lt;/h1&gt;&lt;p&gt;top中的源代码，慢
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://www.delta1037.cn/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://www.delta1037.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux终端动态刷新</title>
+    <link href="https://www.delta1037.cn/2020/Linux/Linux%E7%BB%88%E7%AB%AF%E5%8A%A8%E6%80%81%E5%88%B7%E6%96%B0/"/>
+    <id>https://www.delta1037.cn/2020/Linux/Linux终端动态刷新/</id>
+    <published>2020-12-03T11:16:31.000Z</published>
+    <updated>2020-12-03T14:36:33.834Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Linux终端动态刷新"><a href="#Linux终端动态刷新" class="headerlink" title="Linux终端动态刷新"></a>Linux终端动态刷新</h1><h2 id="一、代码片段"><a href="#一、代码片段" class="headerlink" title="一、代码片段"></a>一、代码片段</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> CStat::runtimePrintBuf(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; &amp;buf)&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> last_print_lines = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; last_print_lines; ++i)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\033[1A"</span>); <span class="comment">//先回到上一行</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\033[K"</span>);  <span class="comment">//清除该行</span></span><br><span class="line">    &#125;</span><br><span class="line">    last_print_lines = buf.size();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;it : buf)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, it.c_str());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="二、相关知识"><a href="#二、相关知识" class="headerlink" title="二、相关知识"></a>二、相关知识</h2><h3 id="2-1-终端控制字符"><a href="#2-1-终端控制字符" class="headerlink" title="2.1 终端控制字符"></a>2.1 终端控制字符</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Linux终端动态刷新&quot;&gt;&lt;a href=&quot;#Linux终端动态刷新&quot; class=&quot;headerlink&quot; title=&quot;Linux终端动态刷新&quot;&gt;&lt;/a&gt;Linux终端动态刷新&lt;/h1&gt;&lt;h2 id=&quot;一、代码片段&quot;&gt;&lt;a href=&quot;#一、代码片段&quot; cla
       
     
     </summary>
@@ -501,34 +527,6 @@
       
       
         &lt;h1 id=&quot;Linux内核编译&quot;&gt;&lt;a href=&quot;#Linux内核编译&quot; class=&quot;headerlink&quot; title=&quot;Linux内核编译&quot;&gt;&lt;/a&gt;Linux内核编译&lt;/h1&gt;&lt;h2 id=&quot;内核下载与解压&quot;&gt;&lt;a href=&quot;#内核下载与解压&quot; class=&quot;he
-      
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="https://www.delta1037.cn/categories/Linux/"/>
-    
-    
-      <category term="Linux小系统" scheme="https://www.delta1037.cn/tags/Linux%E5%B0%8F%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux小系统（三）-U盘启动</title>
-    <link href="https://www.delta1037.cn/2018/Linux/linux%E5%B0%8F%E7%B3%BB%E7%BB%9F-u%E7%9B%98%E5%90%AF%E5%8A%A8/"/>
-    <id>https://www.delta1037.cn/2018/Linux/linux小系统-u盘启动/</id>
-    <published>2018-10-04T11:05:01.000Z</published>
-    <updated>2020-12-03T14:36:33.575Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="U盘启动小系统"><a href="#U盘启动小系统" class="headerlink" title="U盘启动小系统"></a>U盘启动小系统</h1><blockquote><p>环境： Window10 CentOs虚拟机</p></blockquote><h2 id="制作启动盘"><a href="#制作启动盘" class="headerlink" title="制作启动盘"></a>制作启动盘</h2><ol><li>找一个不常用的U盘，分出来一小部分作为启动分区，剩余的作为日常使用（最好在window上分盘。。。）</li><li><p>在虚拟机上挂载U盘，启动分区格式化</p><p>$ mkfs.ext4 /dev/uBootPart</p></li></ol><ol start="3"><li><p>将分出来的启动分区添加上启动标志</p><p>$ fdisk /dev/uBootPart -a</p></li></ol><p>再次fdisk -l 之后看到U盘的启动分区的boot下有个* <img src="https://www.geniusrabbit.top/wp-content/uploads/2018/10/linu_boot1.png" alt> 4.向启动分区中安装grub,/mnt是挂载位置</p><pre><code>$ grub-install --root-directory=/mnt   /dev/uBootPart</code></pre><h2 id="必要文件拷贝"><a href="#必要文件拷贝" class="headerlink" title="必要文件拷贝"></a>必要文件拷贝</h2><ul><li>/boot/grub/grub.conf (内容做适当修改)</li><li>boot/vmlinuz*</li><li>boot/initramfs.img</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;U盘启动小系统&quot;&gt;&lt;a href=&quot;#U盘启动小系统&quot; class=&quot;headerlink&quot; title=&quot;U盘启动小系统&quot;&gt;&lt;/a&gt;U盘启动小系统&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;环境： Window10 CentOs虚拟机&lt;/p&gt;
-&lt;/blockquo
       
     
     </summary>
