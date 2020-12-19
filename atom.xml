@@ -6,7 +6,7 @@
   <link href="https://www.delta1037.cn/atom.xml" rel="self"/>
   
   <link href="https://www.delta1037.cn/"/>
-  <updated>2020-12-11T17:31:07.612Z</updated>
+  <updated>2020-12-19T17:08:11.329Z</updated>
   <id>https://www.delta1037.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>圣诞树绕线曲线方程</title>
+    <link href="https://www.delta1037.cn/2020/Math/%E5%9C%A3%E8%AF%9E%E6%A0%91%E7%BB%95%E7%BA%BF%E6%9B%B2%E7%BA%BF%E6%96%B9%E7%A8%8B/"/>
+    <id>https://www.delta1037.cn/2020/Math/%E5%9C%A3%E8%AF%9E%E6%A0%91%E7%BB%95%E7%BA%BF%E6%9B%B2%E7%BA%BF%E6%96%B9%E7%A8%8B/</id>
+    <published>2020-12-19T14:18:31.000Z</published>
+    <updated>2020-12-19T17:08:11.329Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="圣诞树绕线曲线方程"><a href="#圣诞树绕线曲线方程" class="headerlink" title="圣诞树绕线曲线方程"></a>圣诞树绕线曲线方程</h1><p>马上就要圣诞节了，圣诞树上会绕一圈彩灯，以表对圣诞节的敬意，淦！</p><p>对于一个圣诞树，绕的一圈的彩灯的曲线是什么样的呢？侧面看起来是什么样的？如果彩灯曲线上彩灯分布式均匀的，那么彩灯的位置该怎么计算？</p><p>本文假设圣诞树是一个圆锥体，彩灯从顶端开始绕，随意一个视图如下图所示：</p><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/christmas_tree_equation/view.png" alt=""></p><p>本文假设：</p><ul><li>圆锥体高：H</li><li>圆锥体底面直径：W</li></ul><h2 id="俯视图的彩灯曲线"><a href="#俯视图的彩灯曲线" class="headerlink" title="俯视图的彩灯曲线"></a>俯视图的彩灯曲线</h2><p>圣诞树上彩灯从树的俯视图方向看如下：</p><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/christmas_tree_equation/top_view.png" alt=""></p><h2 id="主视图的彩灯曲线"><a href="#主视图的彩灯曲线" class="headerlink" title="主视图的彩灯曲线"></a>主视图的彩灯曲线</h2><p>圣诞树上的彩灯从树的主视图方向看如下：</p><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/christmas_tree_equation/main_view.png" alt=""></p><h2 id="主视图上彩灯位置方程"><a href="#主视图上彩灯位置方程" class="headerlink" title="主视图上彩灯位置方程"></a>主视图上彩灯位置方程</h2><p>假设彩灯是均匀的，那么主视图上的彩灯的位置计算如下：</p><p>肝不动了，下次再写，先贴个算好的渲染出来的图：</p><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/christmas_tree_equation/tree_light.png" alt=""></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;圣诞树绕线曲线方程&quot;&gt;&lt;a href=&quot;#圣诞树绕线曲线方程&quot; class=&quot;headerlink&quot; title=&quot;圣诞树绕线曲线方程&quot;&gt;&lt;/a&gt;圣诞树绕线曲线方程&lt;/h1&gt;&lt;p&gt;马上就要圣诞节了，圣诞树上会绕一圈彩灯，以表对圣诞节的敬意，淦！&lt;/p&gt;
+&lt;p&gt;对于</summary>
+      
+    
+    
+    
+    <category term="Math" scheme="https://www.delta1037.cn/categories/Math/"/>
+    
+    
+    <category term="Math" scheme="https://www.delta1037.cn/tags/Math/"/>
+    
+  </entry>
   
   <entry>
     <title>常用环境配置</title>
@@ -470,32 +495,6 @@
     
     
     <category term="NS-3" scheme="https://www.delta1037.cn/tags/NS-3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>敏捷开发小记</title>
-    <link href="https://www.delta1037.cn/2018/School/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91%E5%B0%8F%E8%AE%B0/"/>
-    <id>https://www.delta1037.cn/2018/School/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91%E5%B0%8F%E8%AE%B0/</id>
-    <published>2018-11-12T14:48:33.000Z</published>
-    <updated>2020-12-11T17:31:09.323Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="敏捷知识基础"><a href="#敏捷知识基础" class="headerlink" title="敏捷知识基础"></a>敏捷知识基础</h3><ul><li>迭代计划会议、迭代验收会议、每日站立会议、迭代回顾会议</li><li>聚焦客户价值，激发团队潜能、适应变化</li><li>自动化、变化的需求</li></ul><h1 id="story"><a href="#story" class="headerlink" title="story"></a>story</h1><ul><li>故事描述了对于系统或软件的客户或用户有价值的一个功能点</li><li>组成<ul><li>简短描述</li><li>针对故事描述交流，澄清细节</li><li>记录和传递故事细节的测试信息，用来确定故事是否开发完成</li></ul></li><li>格式：<ul><li>作为X（什么用户角色</li><li>为了Y（目的</li><li>希望得到什么（系统提供什么功能</li></ul></li><li>3-3-4<ul><li>三个角色：PO、master、开发人员</li><li>三个工件：</li><li>产品清单</li><li>迭代清单</li><li>燃尽图</li><li>四个会议</li></ul></li><li>收集story<ul><li>价值分析</li><li>识别用户角色</li><li>编写story</li><li>确定优先级</li><li>估计</li></ul></li><li>分解Story<ul><li>分解原则：每个格式提供相对完整的功能</li></ul></li><li>好的story<ul><li>独立</li><li>便于沟通</li><li>有价值</li><li>易于估计</li><li>可测试</li></ul></li></ul><h2 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h2><ul><li>持续集成工作产品，一天集成多次，每次集成有自动化的测试环境（包含测试）</li></ul><h2 id="测试驱动开发"><a href="#测试驱动开发" class="headerlink" title="测试驱动开发"></a>测试驱动开发</h2><ul><li>快速新增测试</li><li>运行所有测试</li><li>做改动</li><li>所有测试通过</li><li>重构，消除重复设计，设计优化结构</li></ul><h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><ul><li>快速：测试运行够快</li><li>独立用例之间互相独立</li><li>可重复：任何环境、可重复</li><li>自足验证：足够的自动化测试验证逻辑</li><li>及时：及时写测试用例</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;敏捷知识基础&quot;&gt;&lt;a href=&quot;#敏捷知识基础&quot; class=&quot;headerlink&quot; title=&quot;敏捷知识基础&quot;&gt;&lt;/a&gt;敏捷知识基础&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;迭代计划会议、迭代验收会议、每日站立会议、迭代回顾会议&lt;/li&gt;
-&lt;li&gt;聚焦客户价值，激发团队</summary>
-      
-    
-    
-    
-    <category term="课程" scheme="https://www.delta1037.cn/categories/%E8%AF%BE%E7%A8%8B/"/>
-    
-    
-    <category term="敏捷开发" scheme="https://www.delta1037.cn/tags/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
