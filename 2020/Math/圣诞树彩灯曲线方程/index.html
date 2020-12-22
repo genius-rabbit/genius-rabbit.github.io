@@ -44,14 +44,14 @@ l = { {W\theta}\over{4{\pi}Q} },
 <p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/christmas_tree_equation/top_view-axi-draw-fuzhu.png" alt=""></p>
 <p>我们在主视图上建立如下坐标系：</p>
 <p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/christmas_tree_equation/main_view-axi-draw.png" alt=""></p>
-<p>所以根据以上的分析，在$h$方向是随$\theta$均匀变化的，在$w$方向，坐标长度是$l<em>cos(\theta)$，但是在主视图的坐标系中不存在$\theta$变量，所以我们使用h变量来替换掉$\theta$，根据彩灯的三维曲线方程，我们知道$h = { {H\theta}\over{2{\pi}Q} }$，所以$\theta$使用$h$来表示则是$\theta = { {2{\pi}Qh}\over{H} }$，$l$使用$\theta$替换可得$l = { {W\theta}\over{4{\pi}Q} }$。所以在$w$方向，$w = l</em>cos(\theta) = { {W\theta}\over{4{\pi}Q} } <em> cos(\theta) = {Wh\over2H} </em> cos({ {2{\pi}Qh}\over{H} })$ 。所以主视图上的方程如下：</p>
+<p>所以根据以上的分析，在$h$方向是随$\theta$均匀变化的，在$w$方向，坐标长度是$l*cos(\theta)$，但是在主视图的坐标系中不存在$\theta$变量，所以我们使用h变量来替换掉$\theta$，根据彩灯的三维曲线方程，我们知道$h = { {H\theta}\over{2{\pi}Q} }$，所以$\theta$使用$h$来表示则是$\theta = { {2{\pi}Qh}\over{H} }$，$l$使用$\theta$替换可得$l = { {W\theta}\over{4{\pi}Q} }$。所以在$w$方向，$w = l\ cos(\theta) = { {W\theta}\over{4{\pi}Q} } \ cos(\theta) = {Wh\over2H}\ cos({ {2{\pi}Qh}\over{H} })$ 。所以主视图上的方程如下：</p>
 <script type="math/tex; mode=display">
 f(h, w)
 \begin{cases}
 h = h , &0 \le h \le H \\
-w = {Wh\over2H} * cos({ {2{\pi}Qh}\over{H} }), 
+w = {Wh\over2H}\ cos({ {2{\pi}Qh}\over{H} }), 
 \end{cases}</script><p>其中：</p>
-<p>$w$的核心为$h * cos(h)$，该函数是一次函数$h$和三角函数$cos(h)$的乘积，即使用一次函数$h$对三角函数$cos(h)$的范围进行了限制。</p>
+<p>$w$的核心为$h \ cos(h)$，该函数是一次函数$h$和三角函数$cos(h)$的乘积，即使用一次函数$h$对三角函数$cos(h)$的范围进行了限制。</p>
 <h2 id="四、主视图上彩灯位置方程"><a href="#四、主视图上彩灯位置方程" class="headerlink" title="四、主视图上彩灯位置方程"></a>四、主视图上彩灯位置方程</h2><p>假设彩灯是均匀的，那么主视图上的彩灯的位置计算如下：</p>
 <p>肝不动了，下次再写，先贴个算好的渲染出来的图：</p>
 <p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/christmas_tree_equation/tree_light.png" alt=""></p>
