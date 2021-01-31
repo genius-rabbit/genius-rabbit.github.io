@@ -6,7 +6,7 @@
   <link href="https://www.delta1037.cn/atom.xml" rel="self"/>
   
   <link href="https://www.delta1037.cn/"/>
-  <updated>2021-01-17T08:41:59.576Z</updated>
+  <updated>2021-01-31T12:39:18.515Z</updated>
   <id>https://www.delta1037.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>计算机系统</title>
+    <link href="https://www.delta1037.cn/2021/APUE/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://www.delta1037.cn/2021/APUE/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/</id>
+    <published>2021-01-31T13:19:45.000Z</published>
+    <updated>2021-01-31T12:39:18.515Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h1><h2 id="一、硬件组织"><a href="#一、硬件组织" class="headerlink" title="一、硬件组织"></a>一、硬件组织</h2><h3 id="1-1-总线"><a href="#1-1-总线" class="headerlink" title="1.1 总线"></a>1.1 总线</h3><p>总线被设计成传送定长的字节块，也就是<strong>字</strong>（word）。现在大多数机器要么是4个字节（32位），要么是8个字节（64位）。</p><h3 id="1-2-I-O设备"><a href="#1-2-I-O设备" class="headerlink" title="1.2 I/O设备"></a>1.2 I/O设备</h3><p>I/O设备是是系统与外部的联系通道。基本的I/O设备包括：作为用户输入的鼠标和键盘、作为用户输出的显示器和用于长期存储数据和程序的磁盘驱动器（磁盘）。</p><p>每一个I/O设备都通过一个控制器<strong>或</strong>适配器与I/O总线相连。<strong>控制器</strong>是IO设备本身或者系统的主印制电路板（主板）上的芯片组。<strong>适配器</strong>是插在主板插槽上的卡。</p><h3 id="1-3-主存"><a href="#1-3-主存" class="headerlink" title="1.3 主存"></a>1.3 主存</h3><p>主存是一个<strong>临时</strong>存储设备。在处理器执行程序时，用来存放程序和程序处理的数据。从物理上来讲，主存是一组动态随机存取存储器（DRAM）组成的；从逻辑上来说，存储器是一个线性的字节数组，每个字节有<strong>唯一的地址</strong>。</p><h3 id="1-4-处理器"><a href="#1-4-处理器" class="headerlink" title="1.4 处理器"></a>1.4 处理器</h3><p>中央处理单元（CPU），简称处理器，是解释（执行）存储在主存中指令的引擎。处理器的核心是一个大小为一个字的存储设备（或寄存器），称为<strong>程序计数器</strong>（PC）。</p><p>从系统通电开始，直到系统断电，处理器一直在不断地执行程序计数器指向的指令，再更新计数器，使之指向下一条指令。</p><h2 id="二、操作系统"><a href="#二、操作系统" class="headerlink" title="二、操作系统"></a>二、操作系统</h2><p>操作系统的两个基本功能：（1）防止硬件被失控的应用程序滥用；（2）向应用程序提供简单一致的机制来控制复杂而又通常不同的低级硬件设备。</p><h3 id="2-1-进程"><a href="#2-1-进程" class="headerlink" title="2.1 进程"></a>2.1 进程</h3><p>进程是操作系统对一个正在运行的程序的一种抽象。在一个系统上可以同时运行多个进程，每个进程像是独占地使用硬件。</p><p>一个CPU看上去在并发地执行多个进程，这是通过进程间的切换实现的。操作系统实现这种交错执行的机制称为<strong>上下文切换</strong>，操作系统保持跟踪进程运行所需的所有的状态信息，这些状态信息就是<strong>上下文</strong>。</p><h3 id="2-2-线程"><a href="#2-2-线程" class="headerlink" title="2.2 线程"></a>2.2 线程</h3><p>在现代操作系统中，一个进程实际上是可以由多个称为线程的执行单元组成，每个线程运行在进程的上下文中，并共享同样的<strong>代码</strong>和<strong>全局数据</strong>。</p><h3 id="2-3-虚拟内存"><a href="#2-3-虚拟内存" class="headerlink" title="2.3 虚拟内存"></a>2.3 虚拟内存</h3><p>虚拟内存是一个抽象概念，为每一个进程提供了一个假象——每个进程在独占地使用主存。每个进程看到地内存都是一致地，称为<strong>虚拟地址空间</strong>。</p><p>Linux进程地虚拟地址空间是由大量准确定义地区域组成的。从低地址到高地址主要有：</p><ul><li>只读的代码和数据、读/写数据：对所有的进程来说，代码是从一个固定的地址开始的。代码区和数据区是直接按照可执行目标文件的内容初始化的。</li><li>运行时堆：堆可以在运行时进行动态地扩展和收缩</li><li>共享库：大约在地址空间的中间部分。</li><li>用户栈：编译器用它来实现函数调用。每调用一个函数，栈就会增长；从一个函数返回时，栈会收缩。</li><li>内核虚拟内存：为内核保留，不允许应用程序读写这个区域的内容或者直接调用内核代码定义的函数。相反，必须调用内核来执行这些操作。</li></ul><h3 id="2-4-文件"><a href="#2-4-文件" class="headerlink" title="2.4 文件"></a>2.4 文件</h3><p>文件就是字节序列。每一个IO设备甚至是网络，都可以看成是文件。系统中的所有输入输出都是通过一组Unix I/O的系统函数调用读写文件来实现的。</p><h2 id="三、计算机系统中的抽象"><a href="#三、计算机系统中的抽象" class="headerlink" title="三、计算机系统中的抽象"></a>三、计算机系统中的抽象</h2><ul><li>文件是对I/O设备的抽象</li><li>虚拟内存是是对程序存储器的抽象（主存和磁盘的抽象）</li><li>进程是对一个正在运行的程序的抽象（处理器、主存和I/O设备的抽象）</li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>【0】深入理解计算机系统</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;计算机系统&quot;&gt;&lt;a href=&quot;#计算机系统&quot; class=&quot;headerlink&quot; title=&quot;计算机系统&quot;&gt;&lt;/a&gt;计算机系统&lt;/h1&gt;&lt;h2 id=&quot;一、硬件组织&quot;&gt;&lt;a href=&quot;#一、硬件组织&quot; class=&quot;headerlink&quot; title=&quot;一</summary>
+      
+    
+    
+    
+    
+    <category term="OS" scheme="https://www.delta1037.cn/tags/OS/"/>
+    
+  </entry>
   
   <entry>
     <title>圣诞树彩灯曲线方程</title>
@@ -468,33 +490,6 @@
     
     
     <category term="编译" scheme="https://www.delta1037.cn/tags/%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基于NS3的无线链路物理层仿真实验</title>
-    <link href="https://www.delta1037.cn/2019/School/%E5%9F%BA%E4%BA%8Ens3%E7%9A%84%E6%97%A0%E7%BA%BF%E9%93%BE%E8%B7%AF%E7%89%A9%E7%90%86%E5%B1%82%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C/"/>
-    <id>https://www.delta1037.cn/2019/School/%E5%9F%BA%E4%BA%8Ens3%E7%9A%84%E6%97%A0%E7%BA%BF%E9%93%BE%E8%B7%AF%E7%89%A9%E7%90%86%E5%B1%82%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C/</id>
-    <published>2019-02-11T11:21:59.000Z</published>
-    <updated>2020-12-11T17:31:09.528Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol><li>掌握NS3的基本仿真方法</li><li>熟悉NS3的无线链路模型</li><li>改进NS3的无线链路模型</li></ol><h2 id="二、实验背景"><a href="#二、实验背景" class="headerlink" title="二、实验背景"></a>二、实验背景</h2><p>在原有的NS3的无线模型中,很难去控制链路的速率，延迟和错误等属性，例如在原有的模型中，错误率是不随距离变化的，即只要在可以传输的范围之内，错误率都是一样的，但是在实际中，随着距离的增加，错误率应该逐渐上升，而不是保持不变，因此我们在现有的模型中做出了一些改进，引入随着距离增加错误率逐渐增加的错误模型，并且引入丢头队列和丢尾队列来模拟不同队列的场景下传输速率的变化，同时加入定向网络的模型，实现定向传输的功能并且支持固定争用模型，即在冲突范围内，随着用户数量的增加，收包率逐渐下降。</p><h2 id="三、实验原理"><a href="#三、实验原理" class="headerlink" title="三、实验原理"></a>三、实验原理</h2><h4 id="1-错误模型"><a href="#1-错误模型" class="headerlink" title="1.错误模型"></a>1.错误模型</h4><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图一_节点分布图.png" alt=""></p><p>图一:节点分布图</p><p>上图是基于NS3的错误模型节点分布图，如图所示，节点0分布在半径为100的圆的中心，其余100个节点以节点0为中心半径为100的圆内随机分布，同时节点0向周围节点发送数据，传输距离为100. ​ 在NS3原有的错误模型中，节点0向各个节点发送数据的丢包率是一样的，但是实际场景中随着距离的增加，丢包率会逐渐上升，经过研究和调查，我们所构建的丢包率曲线如下图<br><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图二_丢包率曲线.png" alt=""></p><p>图二:丢包率曲线</p><h4 id="2-队列模型"><a href="#2-队列模型" class="headerlink" title="2.队列模型"></a>2.队列模型</h4><p>​ 在NS3的原有队列模型中使用的是丢尾队列，当发送数据包的队列已满时，丢尾队列会丢弃队列的最后的数据包，以控制数据包的发送率，我们引入了丢头队列，即当队列已满时，主动丢弃队列的头部的数据包，因为当队列已满时，表明队列的头部数据包非常的大，导致发送时间过长，使得后面的数据包处于等待过程中。因此丢头队列机制也会使得数据包的发送速率提升。</p><h4 id="3-定向网络"><a href="#3-定向网络" class="headerlink" title="3.定向网络"></a>3.定向网络</h4><p>​ 在NS3现有的模型中,无线网络采用的时广播的方式，中心节点发送数据之后，其余的节点都会收到数据包，我们引入了定向网路的模型，即在显示场景中，通过摆放天线的朝向，可以定向的向部分节点发送数据，两者对比如图：<br><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图三_定向网络和非定向网络对比.png" alt=""></p><p>图三：定向网络和非定向网络对比</p><p>​ 在NS3中构造如上图所示的场景，在定向网络中只有定向的节点才会收到数据包，其余节点则不回收到数据包，而在非定向网络中，则是全部节点都会收到数据包，因此在两种场景下统计各个节点收到的数据包的数量就可以对比两者的特性。</p><h4 id="4-固定争用"><a href="#4-固定争用" class="headerlink" title="4.固定争用"></a>4.固定争用</h4><p>​ 实际场景中，在可传输的范围内，随着用户数量的增多，用户之间发生冲突的几率会逐渐增加，网络的性能将会逐渐下降，吞吐量逐渐下降，丢包率逐渐上升。<br><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图四：固定争用.png" alt=""></p><p>图四：固定争用</p><p>​ 如图所示，仍然采用错误模型中的节点分布，中心节点向周围节点发送数据，同时不断扩大冲突范围，随着冲突范围的不断扩大，覆盖的用户数量就会不断的增加，吞吐量应该会逐渐下降，因此统计各个节点的丢包率应该会观察到随着冲突范围的增加，丢包率在逐渐上升。</p><h2 id="四、实验过程"><a href="#四、实验过程" class="headerlink" title="四、实验过程"></a>四、实验过程</h2><h4 id="1-错误模型测试"><a href="#1-错误模型测试" class="headerlink" title="1.错误模型测试"></a>1.错误模型测试</h4><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图一_节点分布图.png" alt=""></p><p>图五：节点分布图</p><p>​ 采用如图五中的节点分布，一共有101个节点，节点0在中心，另外一百个节点随机分布在半径为100的圆内，令中心节点向周围节点发送数据，统计各个节点收到的数据包。<br><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图二_丢包率曲线.png" alt=""></p><p>图六:测试所得丢包率曲线</p><p>​ 采用所构造的错误模型曲线，统计丢包率，测试结果如图六所示，测试结果显示随着距离的增加，丢包率在逐渐的上升，因此符合预期要求。<br><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图七_测试所得丢包率曲线.png" alt=""></p><p>图七:测试所得丢包率曲线</p><p>​ 另一方面，减少节点数量为21个，统计统计节点的收包特性图，如图七所示，图中绿色的部分表明节点正在收到数据包，其余表示因发生错误导致节点处于空闲状态，结果表明由于节点所处的距离不同，任何两个节点的收包特性是不一样的，因此也从另一方面验证了所构造的模型的合理性和正确性。</p><h4 id="2-数据包队列测试"><a href="#2-数据包队列测试" class="headerlink" title="2.数据包队列测试"></a>2.数据包队列测试</h4><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图八_丢头队列和丢为队列.png" alt=""> ​</p><p>图八:丢头队列和丢为队列</p><p>​ 采用两种类型的队列机制:丢头队列和丢为队列，测试的机制如图八所示，一共有两个节点，节点0向节点1发送数据包，并分别采用两种队列机制，然后统计节点1的收包特性。<br><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图九_测试所得丢包率曲线.png" alt=""> ​</p><p>图九:测试所得丢包率曲线</p><p>​ 如图所示为测试结果，测试结果表明，丢头队列和丢尾队列都可以改变丢包率，并且可以看出丢头队列的延迟比丢尾队列的延迟更小。<br><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图十_队列优先级测试曲线.png" alt=""> ​</p><p>图十:队列优先级测试曲线</p><p>​ 如图所示曲线为队列有限级的测试曲线，所发送的数据包分为数据包和控制包</p><h4 id="3-定向传输测试"><a href="#3-定向传输测试" class="headerlink" title="3.定向传输测试"></a>3.定向传输测试</h4><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图十一_定向传输测试模型.png" alt=""></p><p>图十一:定向传输测试模型</p><p>​ 上图为测试定向网络时的节点分布图，其中节点1，3，4，7，10，11为定向网络节点，当使用定向网络传输模式时，中心节点0向这些节点定向传输数据，其余节点则应不能收到数据包，而当使用非定向网络传输模式时，所有节点都应该可以收到数据包。<br><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图三_定向网络和非定向网络对比.png" alt=""></p><p>图十二:定向传输测试结果</p><p>​ 测试结果如上图，蓝色为非定向网络，黄色为定向网络，结果表明，当使用非定向网络时，全部节点都可以收到数据包，当使用定向网络时，只有定向网络节点才可以收到数据包，非定向网络节点无法收到数据包。</p><h4 id="4-固定争用测试"><a href="#4-固定争用测试" class="headerlink" title="4.固定争用测试"></a>4.固定争用测试</h4><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/hexo-blog/NS3_wireless_expriment/图四：固定争用.png" alt=""></p><p>图十三：固定争用测试结果</p><p>​ 如图所示，横轴为冲突范围所覆盖的用户数量，测试结果表明：随着冲突范围的不断扩大，覆盖的用户数量逐渐增多，因此导致的冲突逐渐增多，丢包率逐渐上升，收包率逐渐下降。</p><h2 id="五、实验小结"><a href="#五、实验小结" class="headerlink" title="五、实验小结"></a>五、实验小结</h2><p>​ 实验过程中，我们遇到了很多的问题，首先在实验环境的搭建过程中，刚开始搭建的是基于NS3-dev的环境，在代码测试的过程中遇到了很多的问题，之后又搭建了NS3-dce的环境进行测试。同时，在测试代码的时候也有很多的问题，由于机器的处理速度有限，仿真测试结果往往需要很长时间才会出来，也花费了我们很多的精力。 ​ 在之后的过程中，我们将继续改进这个模型，构建宏基站和微基站的体系架构，并在此架构上面探索单小区模型和大规模网络场景模型下的基站调度策略。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;一、实验目的&quot;&gt;&lt;a href=&quot;#一、实验目的&quot; class=&quot;headerlink&quot; title=&quot;一、实验目的&quot;&gt;&lt;/a&gt;一、实验目的&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;掌握NS3的基本仿真方法&lt;/li&gt;
-&lt;li&gt;熟悉NS3的无线链路模型&lt;/li&gt;
-&lt;li&gt;改进NS</summary>
-      
-    
-    
-    
-    <category term="课程" scheme="https://www.delta1037.cn/categories/%E8%AF%BE%E7%A8%8B/"/>
-    
-    
-    <category term="NS-3" scheme="https://www.delta1037.cn/tags/NS-3/"/>
     
   </entry>
   
